@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahsan Amin Gorsi | .NET C# Web Developer.</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --bg2: #141414;
+    --bg3: #1a1a1a;
+    --card: #1e1e1e;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0f0f0;
+    --text2: #a0a0a0;
+    --accent: #3b82f6;
+    --accent2: #60a5fa;
+    --accent-glow: rgba(59,130,246,0.15);
+  }
+  [data-theme="light"] {
+    --bg: #f8f9fa;
+    --bg2: #ffffff;
+    --bg3: #f0f2f5;
+    --card: #ffffff;
+    --border: rgba(0,0,0,0.08);
+    --text: #111111;
+    --text2: #555555;
+    --accent: #2563eb;
+    --accent2: #3b82f6;
+    --accent-glow: rgba(37,99,235,0.1);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:1000;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.3s;
+  }
+  [data-theme="light"] nav { background: rgba(248,249,250,0.9); }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; color: var(--text);
+    font-size: 1.05rem; font-weight: 600;
+  }
+  .nav-logo img { width: 34px; height: 34px; border-radius: 8px; object-fit: contain; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text2); font-size: 0.9rem; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent2); }
+  .nav-actions { display: flex; align-items: center; gap: 12px; }
+  .theme-btn, .hamburger {
+    background: none; border: 1px solid var(--border);
+    color: var(--text2); width: 38px; height: 38px;
+    border-radius: 8px; cursor: pointer; font-size: 0.9rem;
+    transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+  }
+  .theme-btn:hover, .hamburger:hover { border-color: var(--accent); color: var(--accent2); }
+  .hamburger { display: none; }
+  .mobile-menu {
+    display: none; flex-direction: column; gap: 0;
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: var(--bg2); border-bottom: 1px solid var(--border);
+    z-index: 999; padding: 1rem 0;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { padding: 0.75rem 2rem; color: var(--text2); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+  .mobile-menu a:hover { color: var(--accent2); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 100px 2rem 4rem;
+    background: var(--bg);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.3);
+    color: var(--accent2); font-size: 0.8rem; padding: 4px 14px;
+    border-radius: 20px; margin-bottom: 1.2rem; letter-spacing: 0.5px;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700; line-height: 1.2; margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .hero h1 span { color: var(--accent2); }
+  .hero-sub { font-size: 1.05rem; color: var(--text2); margin-bottom: 2rem; max-width: 520px; }
+  .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 3rem; }
+  .btn {
+    padding: 10px 24px; border-radius: 8px; font-size: 0.9rem; cursor: pointer;
+    text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 500;
+  }
+  .btn-primary { background: var(--accent); color: #fff; border: none; }
+  .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
+  .btn-outline { background: none; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent2); transform: translateY(-1px); }
+  .hero-stats { display: flex; gap: 2.5rem; }
+  .stat-num { font-size: 2rem; font-weight: 700; color: var(--accent2); }
+  .stat-lbl { font-size: 0.78rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+  .hero-photo {
+    width: 300px; height: 340px;
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid var(--border);
+    position: relative;
+    background: var(--card);
+  }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .hero-badge {
+    position: absolute; bottom: 16px; left: 16px; right: 16px;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+    border-radius: 10px; padding: 10px 14px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.8rem; color: #fff;
+  }
+  [data-theme="light"] .hero-badge { background: rgba(255,255,255,0.85); color: var(--text); }
+  .badge-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; flex-shrink: 0; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .sec-header { text-align: center; margin-bottom: 3.5rem; }
+  .sec-tag { display: inline-block; background: var(--accent-glow); color: var(--accent2); font-size: 0.78rem; padding: 4px 14px; border-radius: 20px; margin-bottom: 1rem; letter-spacing: 0.5px; }
+  .sec-header h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: var(--text); }
+  .sec-header p { color: var(--text2); margin-top: 0.75rem; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--bg2); }
+  .about-grid { display: grid; grid-template-columns: 280px 1fr; gap: 4rem; align-items: start; }
+  .about-img { width: 280px; height: 320px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+  .about-img img { width:100%; height:100%; object-fit:cover; object-position:top; }
+  .about-info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 1.5rem; }
+  .info-row { background: var(--bg3); border-radius: 10px; padding: 10px 14px; }
+  .info-lbl { font-size: 0.72rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+  .info-val { font-size: 0.9rem; color: var(--text); font-weight: 500; margin-top: 2px; }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+  .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+  .skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+  .skill-name { font-weight: 600; color: var(--text); }
+  .skill-pct { color: var(--accent2); font-weight: 600; font-size: 0.9rem; }
+  .skill-desc { color: var(--text2); font-size: 0.85rem; margin-bottom: 1rem; }
+  .skill-bar { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .skill-fill { height: 100%; background: var(--accent); border-radius: 3px; width: 0; transition: width 1.2s ease; }
+
+  /* ── RESUME ── */
+  #resume { background: var(--bg2); }
+  .resume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .resume-col h3 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+  .resume-col h3 i { color: var(--accent2); }
+  .timeline-item { position: relative; padding-left: 1.5rem; border-left: 2px solid var(--border); margin-bottom: 2rem; }
+  .timeline-item::before { content:''; position: absolute; left: -5px; top: 6px; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+  .tl-period { font-size: 0.78rem; color: var(--accent2); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .tl-title { font-size: 0.95rem; font-weight: 600; color: var(--text); }
+  .tl-org { font-size: 0.85rem; color: var(--text2); margin-bottom: 6px; }
+  .tl-desc { font-size: 0.85rem; color: var(--text2); }
+  .tl-list { margin-top: 8px; padding-left: 1rem; }
+  .tl-list li { font-size: 0.82rem; color: var(--text2); margin-bottom: 4px; }
+
+  /* ── GALLERY ── */
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+  .gallery-card {
+    border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
+    position: relative; aspect-ratio: 4/3; background: var(--card); cursor: pointer;
+  }
+  .gallery-card img { width:100%; height:100%; object-fit:cover; transition: transform 0.4s; }
+  .gallery-card:hover img { transform: scale(1.04); }
+  .gallery-overlay {
+    position: absolute; inset:0; background: rgba(0,0,0,0.55);
+    display: flex; align-items: flex-end; padding: 1rem;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .gallery-card:hover .gallery-overlay { opacity: 1; }
+  .gallery-label { color: #fff; font-size: 0.85rem; font-weight: 500; }
+
+  /* ── AWARDS ── */
+  #awards { background: var(--bg2); }
+  .award-card {
+    display: flex; gap: 2rem; align-items: center;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem;
+  }
+  .award-img { width: 160px; height: 160px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
+  .award-img img { width:100%; height:100%; object-fit:cover; }
+  .award-badge { display: inline-block; background: var(--accent-glow); color: var(--accent2); font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; margin-top: 8px; }
+
+  /* ── PROJECTS ── */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+  .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
+  .project-card:hover { transform: translateY(-4px); border-color: rgba(59,130,246,0.4); }
+  .project-thumb { height: 200px; background: var(--bg3); overflow: hidden; position: relative; }
+  .project-thumb img { width:100%; height:100%; object-fit:cover; transition: transform 0.4s; }
+  .project-card:hover .project-thumb img { transform: scale(1.05); }
+  .project-thumb-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; color: var(--text2); font-size: 3rem; }
+  .project-body { padding: 1.25rem; }
+  .project-cat { font-size: 0.75rem; color: var(--accent2); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .project-title { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .project-desc { font-size: 0.85rem; color: var(--text2); margin-bottom: 1rem; }
+  .project-links { display: flex; gap: 10px; }
+  .project-links a { font-size: 0.8rem; color: var(--accent2); text-decoration: none; display: flex; align-items: center; gap: 5px; border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; transition: all 0.2s; }
+  .project-links a:hover { border-color: var(--accent); }
+
+  /* ── SERVICES ── */
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+  .service-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; }
+  .service-icon { width: 48px; height: 48px; background: var(--accent-glow); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--accent2); font-size: 1.4rem; }
+  .service-title { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  .service-desc { font-size: 0.85rem; color: var(--text2); }
+
+  /* ── FAQ ── */
+  #faq { background: var(--bg2); }
+  .faq-wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+  .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .faq-q { padding: 1.1rem 1.25rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 500; color: var(--text); user-select: none; }
+  .faq-q i { color: var(--text2); transition: transform 0.3s; font-size: 0.9rem; }
+  .faq-item.open .faq-q i { transform: rotate(180deg); color: var(--accent2); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s; color: var(--text2); font-size: 0.9rem; }
+  .faq-item.open .faq-a { max-height: 200px; padding: 0 1.25rem 1.1rem; }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .contact-item { display: flex; align-items: center; gap: 14px; padding: 1rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--text); margin-bottom: 12px; transition: border-color 0.2s; }
+  .contact-item:hover { border-color: var(--accent); }
+  .contact-item i { color: var(--accent2); font-size: 1.1rem; width: 20px; text-align: center; }
+  .contact-item span { font-size: 0.9rem; }
+  .wa-btn {
+    display: flex; align-items: center; gap: 10px;
+    background: #25d366; color: #fff; border: none;
+    padding: 12px 24px; border-radius: 10px; cursor: pointer;
+    font-size: 0.9rem; font-weight: 600; text-decoration: none;
+    width: 100%; justify-content: center; margin-top: 4px; transition: background 0.2s;
+  }
+  .wa-btn:hover { background: #1dbd5b; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+  .footer-social { display: flex; justify-content: center; gap: 14px; margin: 1rem 0; }
+  .footer-social a { width: 38px; height: 38px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text2); text-decoration: none; transition: all 0.2s; font-size: 0.9rem; }
+  .footer-social a:hover { border-color: var(--accent); color: var(--accent2); }
+  footer p { color: var(--text2); font-size: 0.85rem; }
+  footer strong { color: var(--text); }
+
+  /* ── WHATSAPP FLOAT ── */
+  .wa-float {
+    position: fixed; bottom: 2rem; right: 2rem;
+    width: 52px; height: 52px; background: #25d366;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.4rem; text-decoration: none;
+    box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+    z-index: 900; transition: transform 0.2s;
+    animation: wa-pop 0.4s ease;
+  }
+  .wa-float:hover { transform: scale(1.12); }
+  @keyframes wa-pop { from{transform:scale(0)} to{transform:scale(1)} }
+
+  /* ── SCROLL TOP ── */
+  .scroll-top {
+    position: fixed; bottom: 5.5rem; right: 2rem;
+    width: 40px; height: 40px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text2); cursor: pointer; font-size: 0.9rem;
+    z-index: 900; opacity: 0; transition: opacity 0.3s, transform 0.2s;
+    text-decoration: none;
+  }
+  .scroll-top.visible { opacity: 1; }
+  .scroll-top:hover { transform: translateY(-2px); color: var(--accent2); }
+
+  /* ── REVEAL ── */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-photo { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-img { width: 100%; height: 260px; }
+    .resume-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .award-card { flex-direction: column; text-align: center; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <img src="source/images/AAG Logo.png" alt="AAG Logo">
+    <span>Ahsan Amin Gorsi</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero">Home</a>
+  <a href="#about">About</a>
+  <a href="#resume">Resume</a>
+  <a href="#projects">Projects</a>
+  <a href="#services">Services</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Available for Freelance Projects</div>
+      <h1>I Build <span>Practical Web</span> Applications with .NET & C#</h1>
+      <p class="hero-sub">Hi, I'm <strong>Ahsan Amin</strong> — a BSCS student and .NET C# Developer building clean, scalable web applications using ASP.NET MVC, SQL Server, and modern frontend tools.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary"><i class="fas fa-eye"></i> Explore My Work</a>
+        <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Get In Touch</a>
+        <a href="source/Resume/Ahsan Amin - Resume.pdf" class="btn btn-outline" target="_blank"><i class="fas fa-download"></i> Download CV</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">3+</div><div class="stat-lbl">Years Learning</div></div>
+        <div><div class="stat-num">10+</div><div class="stat-lbl">Projects Done</div></div>
+        <div><div class="stat-num">1</div><div class="stat-lbl">Mission</div></div>
+      </div>
+    </div>
+    <div class="hero-photo reveal">
+      <img src="source/images/Hero img 2.jpg" alt="Ahsan Amin Gorsi">
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        <span>Open to Work</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-tag">Who I Am</div>
+      <h2>About Me</h2>
+      <p>Passionate .NET C# Web Developer and BSCS student who loves building creative, functional, and impactful digital solutions.</p>
+    </div>
+    <div class="about-grid reveal">
+      <div>
+        <div class="about-img">
+          <img src="source/images/Profile img.png" alt="Ahsan Amin Gorsi Profile">
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size:1.5rem; font-weight:700; margin-bottom:1rem; color:var(--text);">.NET C# Web Developer</h3>
+        <p style="color:var(--text2); margin-bottom:1rem;">I'm a passionate .NET C# Web Developer and BSCS student at the University of Kotli, Azad Kashmir. I love building modern, responsive, and scalable web applications.</p>
+        <p style="color:var(--text2); margin-bottom:1.5rem;">My focus is on continuous learning, clean code, and solving real-world problems through technology and innovation.</p>
+        <div class="about-info">
+          <div class="info-row"><div class="info-lbl">Name</div><div class="info-val">Ahsan Amin</div></div>
+          <div class="info-row"><div class="info-lbl">Phone</div><div class="info-val">0349 5473628</div></div>
+          <div class="info-row"><div class="info-lbl">Age</div><div class="info-val">21 Years</div></div>
+          <div class="info-row"><div class="info-lbl">Email</div><div class="info-val" style="font-size:0.8rem;">ahsanamingorsi@gmail.com</div></div>
+          <div class="info-row"><div class="info-lbl">Occupation</div><div class="info-val" style="font-size:0.82rem;">.NET C# Web Developer</div></div>
+          <div class="info-row"><div class="info-lbl">Nationality</div><div class="info-val">Pakistani</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-tag">What I Know</div>
+      <h2>My Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <!-- TO ADD A SKILL: copy one .skill-card block below and change the values -->
+      <div class="skill-card reveal">
+        <div class="skill-header"><span class="skill-name">HTML & CSS</span><span class="skill-pct">90%</span></div>
+        <p class="skill-desc">Responsive, accessible interfaces with semantic, clean code.</p>
+        <div class="skill-bar"><div class="skill-fill" data-w="90"></div></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-header"><span class="skill-name">C# / ASP.NET MVC</span><span class="skill-pct">85%</span></div>
+        <p class="skill-desc">Data-driven web apps with strong architecture and clean backend logic.</p>
+        <div class="skill-bar"><div class="skill-fill" data-w="85"></div></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-header"><span class="skill-name">TypeScript</span><span class="skill-pct">80%</span></div>
+        <p class="skill-desc">Modern, efficient, and reusable interactive scripts.</p>
+        <div class="skill-bar"><div class="skill-fill" data-w="80"></div></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-header"><span class="skill-name">SQL Server</span><span class="skill-pct">78%</span></div>
+        <p class="skill-desc">Database design, queries, and backend data management.</p>
+        <div class="skill-bar"><div class="skill-fill" data-w="78"></div></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-header"><span class="skill-name">Graphic Design</span><span class="skill-pct">70%</span></div>
+        <p class="skill-desc">Posters, social media visuals, and event branding.</p>
+        <div class="skill-bar"><div class="skill-fill" data-w="70"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-tag">My Journey</div>
+      <h2>Resume</h2>
+      <p>A dedicated .NET C# Web Developer passionate about clean, efficient, scalable web solutions.</p>
+    </div>
+    <div class="resume-grid">
+      <!-- WORK EXPERIENCE -->
+      <div class="reveal">
+        <h3><i class="fas fa-briefcase"></i> Work Experience</h3>
+        <!-- TO ADD EXPERIENCE: copy a .timeline-item block and update the content -->
+        <div class="timeline-item">
+          <div class="tl-period">2025 – Present</div>
+          <div class="tl-title">Founder & Web Developer</div>
+          <div class="tl-org">Acadivo</div>
+          <div class="tl-desc">Founded and developed an educational platform to help students share and access academic materials efficiently.</div>
+          <ul class="tl-list">
+            <li>Developed responsive web platform using ASP.NET MVC and C#.</li>
+            <li>Implemented secure backend systems and file management.</li>
+            <li>Focused on performance, scalability, and deployment.</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-period">2024 – Present</div>
+          <div class="tl-title">Graphic Designer</div>
+          <div class="tl-org">SOCTECH Society, University of Kotli</div>
+          <div class="tl-desc">Designed posters, social media graphics, and event visuals for university tech events like EIC 25.</div>
+        </div>
+      </div>
+      <!-- EDUCATION -->
+      <div class="reveal">
+        <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+        <!-- TO ADD EDUCATION: copy a .timeline-item block -->
+        <div class="timeline-item">
+          <div class="tl-period">2023 – 2027</div>
+          <div class="tl-title">BSCS (Bachelor of Computer Science)</div>
+          <div class="tl-org">University of Kotli, Azad Jammu & Kashmir</div>
+          <div class="tl-desc">Focused on .NET development, software engineering, networking, and information security.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-period">2021 – 2023</div>
+          <div class="tl-title">Intermediate in Computer Science (ICS)</div>
+          <div class="tl-org">Allama Iqbal College Seri</div>
+          <div class="tl-desc">Strong fundamentals in programming, problem-solving, and logical reasoning.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-period">2019 – 2021</div>
+          <div class="tl-title">Matric in Science</div>
+          <div class="tl-org">Allama Iqbal College Seri</div>
+          <div class="tl-desc">Focus on science and mathematics.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-tag">Moments</div>
+      <h2>Gallery</h2>
+      <p>Events, award ceremonies, and behind the scenes</p>
+    </div>
+    <div class="gallery-grid">
+      <!-- TO ADD GALLERY IMAGE: copy one .gallery-card div below, change src and label -->
+      <div class="gallery-card reveal">
+        <img src="source/images/eic-award-stage.jpg" alt="EIC 25 Award Ceremony">
+        <div class="gallery-overlay"><div class="gallery-label"><i class="fas fa-trophy" style="margin-right:6px"></i>EIC 25 Award Ceremony</div></div>
+      </div>
+      <!-- ADD MORE IMAGES HERE -->
+      <div class="gallery-card reveal">
+        <img src="source/images/E-Gala 2026.jpeg" alt="Description">
+        <div class="gallery-overlay"><div class="gallery-label">E-Gala 2026</div></div>
+      </div>
+      <div class="gallery-card reveal">
+        <img src="source/images/E-Gala 2026 {Apprication Certificate ).jpeg" alt="Description">
+        <div class="gallery-overlay"><div class="gallery-label">E-Gala 2026 {Apprication Certificate )</div></div>
+      </div>
+      <div class="gallery-card reveal">
+        <img src="source/images/SEC MEDIA TEAM 2024.jpg" alt="Description">
+        <div class="gallery-overlay"><div class="gallery-label">SEC 2024 MEDIA TEAM</div></div>
+      </div>
+      <div class="gallery-card reveal">
+        <img src="source/images/EIC-25 Team Graphics.jpg" alt="Description">
+        <div class="gallery-overlay"><div class="gallery-label">EIC-25 Team Graphics</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-tag">Recognition</div>
+      <h2>Awards & Achievements</h2>
+      <p>Honors received for contributions and academic excellence</p>
+    </div>
+    <!-- TO ADD AN AWARD: copy the .award-card block below -->
+    <div class="award-card reveal">
+      <div class="award-img">
+        <img src="source/images/Award.jpeg" alt="EIC 25 Recognition Award">
+      </div>
+      <div>
+        <h3 style="font-size:1.2rem; font-weight:700; color:var(--text);">Recognition Award</h3>
+        <p style="color:var(--accent2); font-weight:600; margin:6px 0 2px;">Entrepreneurship Innovation Conference 2025 (EIC 25)</p>
+        <p style="color:var(--text2); font-size:0.9rem;">University of Kotli AJK · 2025</p>
+        <p style="color:var(--text2); font-size:0.88rem; margin-top:8px;">Recognized for outstanding contributions in graphic design and media production for the EIC 25 university conference.</p>
+        <div class="award-badge">★ Excellence in Design & Content Creation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-tag">My Work</div>
+      <h2>Projects</h2>
+      <p>A collection of my latest .NET C# and web development projects.</p>
+    </div>
+    <div class="projects-grid">
+      <!-- TO ADD A PROJECT: copy one .project-card div, update category, title, desc, links, and image -->
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <!-- If you have a screenshot, replace the placeholder with: <img src="assets/img/Projects/askpapergen.png" alt="AskPaperGen"> -->
+          <div class="project-thumb-placeholder"><i class="fas fa-file-alt"></i></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">ASP.NET MVC</div>
+          <div class="project-title">AskPaperGen</div>
+          <p class="project-desc">A smart examination paper generator built using ASP.NET MVC. Helps teachers create structured question papers efficiently with sections and images.</p>
+          <div class="project-links">
+            <a href="https://github.com/ahsanamingorsi/AskPaperGen"><i class="fab fa-github"><!--fas fa-arrow-right--></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <div class="project-thumb-placeholder"><i class="fas fa-film"></i></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">Web Development</div>
+          <div class="project-title">Flixsan</div>
+          <p class="project-desc">A modern movie information website built using HTML, CSS, and JavaScript that displays trending movies dynamically via external APIs.</p>
+          <div class="project-links">
+            <a href="https://github.com/ahsanamingorsi/FlixSan" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <div class="project-thumb-placeholder"><i class="fas fa-graduation-cap"></i></div>
+        </div>
+        <div class="project-body">
+          <div class="project-cat">ASP.NET MVC</div>
+          <div class="project-title">Acadivo</div>
+          <p class="project-desc">Educational web platform for students to share and access academic materials. Features user profiles, file management, and a points system.</p>
+          <div class="project-links">
+            <a href="#"><i class="fas fa-external-link-alt"></i> Under Development</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADD MORE PROJECTS HERE:
+      <div class="project-card reveal">
+        <div class="project-thumb">
+          <img src="assets/img/Projects/yourproject.png" alt="Project Name">
+        </div>
+        <div class="project-body">
+          <div class="project-cat">Category</div>
+          <div class="project-title">Project Name</div>
+          <p class="project-desc">Short description of what this project does.</p>
+          <div class="project-links">
+            <a href="link"><i class="fas fa-arrow-right"></i> View</a>
+            <a href="github_link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+      </div>
+      -->
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-tag">What I Offer</div>
+      <h2>Services</h2>
+      <p>Turning ideas into reality through clean code, innovative solutions, and reliable development.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon"><i class="fas fa-code"></i></div>
+        <div class="service-title">Web Development</div>
+        <p class="service-desc">Custom websites and web apps built with HTML, CSS, JavaScript, and ASP.NET MVC. Clean code, responsive design, and solid performance.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><i class="fas fa-database"></i></div>
+        <div class="service-title">Backend Development</div>
+        <p class="service-desc">Robust backend systems using C# and SQL Server. Secure data handling, API design, and scalable architecture.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+        <div class="service-title">UI/UX & Graphic Design</div>
+        <p class="service-desc">Designing intuitive interfaces and engaging visuals — from user flows to event posters and social media graphics.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><i class="fas fa-lightbulb"></i></div>
+        <div class="service-title">Tech Consultation</div>
+        <p class="service-desc">Expert advice on project planning, technology stack selection, and digital strategy for optimal results.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-tag">Questions</div>
+      <h2>Frequently Asked</h2>
+    </div>
+    <div class="faq-wrap">
+      <!-- TO ADD FAQ: copy one .faq-item block -->
+      <div class="faq-item reveal">
+        <div class="faq-q">What services do you offer? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-a">I provide web development, backend development, graphic design, and tech consultation services tailored to meet client needs with a focus on quality and creativity.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">How long does a typical project take? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-a">Small websites may take 1–2 weeks, while larger web applications could take 4–8 weeks depending on complexity and requirements.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Which technologies do you work with? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-a">I specialize in HTML, CSS, JavaScript, Bootstrap, C#, ASP.NET MVC, and SQL Server — with a focus on clean, reliable, and maintainable solutions.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Do you offer ongoing support? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-a">Absolutely! I offer maintenance and support services to ensure your website stays updated, secure, and optimized long after launch.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Are you available for freelance work? <i class="fas fa-chevron-down"></i></div>
+        <div class="faq-a">Yes, I'm available for freelance projects. Feel free to reach out via email or WhatsApp and we can discuss your project requirements.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="sec-header reveal">
+      <div class="sec-tag">Let's Talk</div>
+      <h2>Get In Touch</h2>
+      <p>Available for web development projects, tech consultation, or collaboration. Reach out and let's discuss your ideas!</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <a href="mailto:ahsanamingorsi@gmail.com" class="contact-item">
+          <i class="fas fa-envelope"></i><span>ahsanamingorsi@gmail.com</span>
+        </a>
+        <a href="tel:+923495473628" class="contact-item">
+          <i class="fas fa-phone"></i><span>+92 349 5473628</span>
+        </a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Khuiratta,+Kotli,+Azad+Kashmir" target="_blank" class="contact-item">
+          <i class="fas fa-map-marker-alt"></i><span>Khuiratta, Kotli, Azad Kashmir, Pakistan</span>
+        </a>
+        <a href="https://wa.me/923495473628" target="_blank" class="wa-btn">
+          <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-icon"><i class="fas fa-handshake"></i></div>
+        <div class="service-title">Let's Work Together</div>
+        <p class="service-desc" style="margin-bottom:1rem;">I typically respond within 24 hours for project inquiries and collaboration opportunities.</p>
+        <p class="service-desc">Feel free to reach out through any of the channels listed — email, phone, or WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-social">
+      <a href="https://x.com/ahsanamingorsi" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.facebook.com/share/1Cjf5EfiFf/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://www.instagram.com/ahsanamingorsi" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/ahsanamingorsi" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/ahsanamingorsi" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    </div>
+    <p>© 2025 <strong>Ahsan Amin Gorsi</strong> · All Rights Reserved</p>
+    <p style="margin-top:6px; font-size:0.8rem;">Designed & Developed by <strong>Ahsan Amin</strong></p>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/923495473628" target="_blank" class="wa-float" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- SCROLL TOP -->
+<a href="#hero" class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+  <i class="fas fa-arrow-up"></i>
+</a>
+
+<script>
+  // ── THEME TOGGLE ──
+  const themeBtn = document.getElementById('themeBtn');
+  const html = document.documentElement;
+  let theme = localStorage.getItem('portfolio-theme') || 'dark';
+  
+  function applyTheme(t) {
+    html.setAttribute('data-theme', t);
+    themeBtn.innerHTML = t === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    localStorage.setItem('portfolio-theme', t);
+  }
+  applyTheme(theme);
+  themeBtn.addEventListener('click', () => {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    applyTheme(theme);
+  });
+
+  // ── HAMBURGER MENU ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // ── FAQ ACCORDION ──
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // ── SCROLL REVEAL + SKILL BARS ──
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.getAttribute('data-w') + '%';
+        });
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // ── SCROLL TOP BUTTON ──
+  const scrollTopBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
+  });
+  scrollTopBtn.addEventListener('click', e => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ── ACTIVE NAV LINK ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent2)' : '';
+    });
+  });
+</script>
+</body>
+</html>
