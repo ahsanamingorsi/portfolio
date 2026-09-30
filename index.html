@@ -2,832 +2,437 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ahsan Amin Gorsi | .NET C# Web Developer.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahsan Amin Gorsi | .NET C# Web Developer</title>
+<meta name="description" content="Ahsan Amin Gorsi builds practical web applications with ASP.NET MVC, C# and SQL Server.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-  :root {
-    --bg: #0d0d0d;
-    --bg2: #141414;
-    --bg3: #1a1a1a;
-    --card: #1e1e1e;
-    --border: rgba(255,255,255,0.08);
-    --text: #f0f0f0;
-    --text2: #a0a0a0;
-    --accent: #3b82f6;
-    --accent2: #60a5fa;
-    --accent-glow: rgba(59,130,246,0.15);
-  }
-  [data-theme="light"] {
-    --bg: #f8f9fa;
-    --bg2: #ffffff;
-    --bg3: #f0f2f5;
-    --card: #ffffff;
-    --border: rgba(0,0,0,0.08);
-    --text: #111111;
-    --text2: #555555;
-    --accent: #2563eb;
-    --accent2: #3b82f6;
-    --accent-glow: rgba(37,99,235,0.1);
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-    transition: background 0.3s, color 0.3s;
-  }
+:root{
+  --bg:#07070f; --bg2:#0d0d1a; --card:#12121f; --line:rgba(160,150,255,.14);
+  --text:#f2f1fb; --mut:#9a98b5; --brand:#7c5cff; --brand2:#a99bff; --glow:rgba(124,92,255,.22);
+  --ok:#3ddc97; --nav:rgba(7,7,15,.72);
+  --display:'Bricolage Grotesque',system-ui,sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+:root[data-theme="light"]{
+  --bg:#f7f6fd; --bg2:#eeecfa; --card:#fff; --line:rgba(80,60,200,.14);
+  --text:#14122b; --mut:#5b5878; --brand:#5b3fe0; --brand2:#4a30c4; --glow:rgba(91,63,224,.14); --nav:rgba(247,246,253,.78);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.7;transition:background .3s,color .3s;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brand2);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;letter-spacing:-.02em}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.5rem}
+section{padding:6rem 0}
+.alt{background:var(--bg2)}
+.head{margin-bottom:3rem;max-width:620px}
+.head h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:800}
+.head p{color:var(--mut);margin-top:.8rem}
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top:0; left:0; right:0; z-index:1000;
-    background: rgba(13,13,13,0.85);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    height: 64px;
-    display: flex; align-items: center; justify-content: space-between;
-    transition: background 0.3s;
-  }
-  [data-theme="light"] nav { background: rgba(248,249,250,0.9); }
-  .nav-logo {
-    display: flex; align-items: center; gap: 10px;
-    text-decoration: none; color: var(--text);
-    font-size: 1.05rem; font-weight: 600;
-  }
-  .nav-logo img { width: 34px; height: 34px; border-radius: 8px; object-fit: contain; }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { text-decoration: none; color: var(--text2); font-size: 0.9rem; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--accent2); }
-  .nav-actions { display: flex; align-items: center; gap: 12px; }
-  .theme-btn, .hamburger {
-    background: none; border: 1px solid var(--border);
-    color: var(--text2); width: 38px; height: 38px;
-    border-radius: 8px; cursor: pointer; font-size: 0.9rem;
-    transition: all 0.2s; display: flex; align-items: center; justify-content: center;
-  }
-  .theme-btn:hover, .hamburger:hover { border-color: var(--accent); color: var(--accent2); }
-  .hamburger { display: none; }
-  .mobile-menu {
-    display: none; flex-direction: column; gap: 0;
-    position: fixed; top: 64px; left: 0; right: 0;
-    background: var(--bg2); border-bottom: 1px solid var(--border);
-    z-index: 999; padding: 1rem 0;
-  }
-  .mobile-menu.open { display: flex; }
-  .mobile-menu a { padding: 0.75rem 2rem; color: var(--text2); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
-  .mobile-menu a:hover { color: var(--accent2); }
+/* nav */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;height:66px;background:var(--nav);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);transition:background .3s}
+.nav-in{height:100%;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:700}
+.logo img{width:32px;height:32px;border-radius:8px;object-fit:contain}
+.links{display:flex;gap:1.8rem;list-style:none}
+.links a{text-decoration:none;color:var(--mut);font-size:.92rem;position:relative;transition:color .2s}
+.links a::after{content:'';position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--brand);transition:width .25s}
+.links a:hover,.links a.on{color:var(--text)}
+.links a:hover::after,.links a.on::after{width:100%}
+.acts{display:flex;gap:10px}
+.ib{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:none;color:var(--mut);cursor:pointer;transition:.2s}
+.ib:hover{color:var(--text);border-color:var(--brand)}
+.burger{display:none}
+.mm{display:none;position:fixed;top:66px;inset-inline:0;background:var(--bg2);border-bottom:1px solid var(--line);padding:.5rem 0;z-index:49}
+.mm.open{display:block}
+.mm a{display:block;padding:.8rem 1.5rem;text-decoration:none;color:var(--mut)}
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 100px 2rem 4rem;
-    background: var(--bg);
-    position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute; top: -200px; right: -200px;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-inner {
-    max-width: 1100px; margin: 0 auto; width: 100%;
-    display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center;
-  }
-  .hero-tag {
-    display: inline-block;
-    background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.3);
-    color: var(--accent2); font-size: 0.8rem; padding: 4px 14px;
-    border-radius: 20px; margin-bottom: 1.2rem; letter-spacing: 0.5px;
-  }
-  .hero h1 {
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    font-weight: 700; line-height: 1.2; margin-bottom: 1rem;
-    color: var(--text);
-  }
-  .hero h1 span { color: var(--accent2); }
-  .hero-sub { font-size: 1.05rem; color: var(--text2); margin-bottom: 2rem; max-width: 520px; }
-  .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 3rem; }
-  .btn {
-    padding: 10px 24px; border-radius: 8px; font-size: 0.9rem; cursor: pointer;
-    text-decoration: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
-    font-weight: 500;
-  }
-  .btn-primary { background: var(--accent); color: #fff; border: none; }
-  .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
-  .btn-outline { background: none; color: var(--text); border: 1px solid var(--border); }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent2); transform: translateY(-1px); }
-  .hero-stats { display: flex; gap: 2.5rem; }
-  .stat-num { font-size: 2rem; font-weight: 700; color: var(--accent2); }
-  .stat-lbl { font-size: 0.78rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
-  .hero-photo {
-    width: 300px; height: 340px;
-    border-radius: 20px; overflow: hidden;
-    border: 1px solid var(--border);
-    position: relative;
-    background: var(--card);
-  }
-  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-  .hero-badge {
-    position: absolute; bottom: 16px; left: 16px; right: 16px;
-    background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
-    border-radius: 10px; padding: 10px 14px;
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.8rem; color: #fff;
-  }
-  [data-theme="light"] .hero-badge { background: rgba(255,255,255,0.85); color: var(--text); }
-  .badge-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; flex-shrink: 0; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+/* hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding:110px 0 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(520px circle at var(--mx,70%) var(--my,30%),var(--glow),transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 60% 40%,#000 0,transparent 70%);opacity:.5;pointer-events:none}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:3.5rem;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);padding:5px 14px;border-radius:99px;font-size:.82rem;color:var(--mut);margin-bottom:1.4rem}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 var(--ok);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.hero h1{font-size:clamp(2.5rem,6vw,4.6rem);font-weight:800}
+.hero h1 em{font-style:normal;background:linear-gradient(100deg,var(--brand2),var(--brand));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--mut);font-size:1.08rem;max-width:520px;margin:1.4rem 0 2rem}
+.sub strong{color:var(--text);font-weight:600}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:2.5rem}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:12px;font-weight:500;font-size:.95rem;text-decoration:none;border:1px solid var(--line);transition:transform .2s,box-shadow .2s,border-color .2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--brand)}
+.btn.p{background:var(--brand);border-color:var(--brand);color:#fff;box-shadow:0 8px 28px var(--glow)}
+.btn.p:hover{box-shadow:0 12px 34px var(--glow)}
+.stats{display:flex;gap:2.5rem}
+.stats b{display:block;font-family:var(--display);font-size:2.2rem;line-height:1}
+.stats span{font-size:.85rem;color:var(--mut)}
 
-  /* ── SECTIONS ── */
-  section { padding: 5rem 2rem; }
-  .container { max-width: 1100px; margin: 0 auto; }
-  .sec-header { text-align: center; margin-bottom: 3.5rem; }
-  .sec-tag { display: inline-block; background: var(--accent-glow); color: var(--accent2); font-size: 0.78rem; padding: 4px 14px; border-radius: 20px; margin-bottom: 1rem; letter-spacing: 0.5px; }
-  .sec-header h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: var(--text); }
-  .sec-header p { color: var(--text2); margin-top: 0.75rem; max-width: 560px; margin-left: auto; margin-right: auto; }
+/* code window (the one memorable element) */
+.win{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 80px -30px var(--glow),0 0 0 1px rgba(255,255,255,.02);overflow:hidden;font-family:var(--mono);font-size:.86rem;transform:rotate(1.2deg)}
+.win-bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--line);color:var(--mut);font-size:.75rem}
+.win-bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.win-bar span{margin-left:8px}
+.code{padding:1.2rem 1.3rem 1.4rem;line-height:1.85}
+.ln{display:block;white-space:pre;overflow:hidden;width:0;animation:type .9s steps(var(--n),end) forwards;animation-delay:calc(var(--i)*.55s + .5s)}
+@keyframes type{to{width:calc(var(--n)*1ch)}}
+.k{color:#c792ea}.t{color:#5ad4e6}.s{color:#a5e075}.c{color:var(--mut)}.pr{color:var(--brand2)}
+.caret{display:inline-block;width:8px;height:1em;background:var(--brand2);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.photo{position:absolute;right:-14px;bottom:-30px;width:104px;height:104px;border-radius:18px;border:3px solid var(--bg);object-fit:cover;object-position:top;background:var(--card);transform:rotate(-4deg);box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.win-wrap{position:relative}
 
-  /* ── ABOUT ── */
-  #about { background: var(--bg2); }
-  .about-grid { display: grid; grid-template-columns: 280px 1fr; gap: 4rem; align-items: start; }
-  .about-img { width: 280px; height: 320px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
-  .about-img img { width:100%; height:100%; object-fit:cover; object-position:top; }
-  .about-info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 1.5rem; }
-  .info-row { background: var(--bg3); border-radius: 10px; padding: 10px 14px; }
-  .info-lbl { font-size: 0.72rem; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
-  .info-val { font-size: 0.9rem; color: var(--text); font-weight: 500; margin-top: 2px; }
+/* hero entrance: one orchestrated moment */
+.in{opacity:0;transform:translateY(14px);animation:up .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--d)*.09s)}
+@keyframes up{to{opacity:1;transform:none}}
 
-  /* ── SKILLS ── */
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
-  .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
-  .skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-  .skill-name { font-weight: 600; color: var(--text); }
-  .skill-pct { color: var(--accent2); font-weight: 600; font-size: 0.9rem; }
-  .skill-desc { color: var(--text2); font-size: 0.85rem; margin-bottom: 1rem; }
-  .skill-bar { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
-  .skill-fill { height: 100%; background: var(--accent); border-radius: 3px; width: 0; transition: width 1.2s ease; }
+/* about */
+.about{display:grid;grid-template-columns:300px 1fr;gap:4rem;align-items:start}
+.about-img{aspect-ratio:1/1.12;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.about-img img{width:100%;height:100%;object-fit:cover;object-position:top}
+.about h3{font-size:1.8rem;margin-bottom:1rem}
+.about p{color:var(--mut);margin-bottom:1rem;max-width:62ch}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:1.5rem}
+.facts div{background:var(--card);padding:.9rem 1.1rem}
+.facts small{display:block;color:var(--mut);font-size:.78rem}
+.facts span{font-weight:500;font-size:.95rem;word-break:break-word}
 
-  /* ── RESUME ── */
-  #resume { background: var(--bg2); }
-  .resume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-  .resume-col h3 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
-  .resume-col h3 i { color: var(--accent2); }
-  .timeline-item { position: relative; padding-left: 1.5rem; border-left: 2px solid var(--border); margin-bottom: 2rem; }
-  .timeline-item::before { content:''; position: absolute; left: -5px; top: 6px; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
-  .tl-period { font-size: 0.78rem; color: var(--accent2); font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .tl-title { font-size: 0.95rem; font-weight: 600; color: var(--text); }
-  .tl-org { font-size: 0.85rem; color: var(--text2); margin-bottom: 6px; }
-  .tl-desc { font-size: 0.85rem; color: var(--text2); }
-  .tl-list { margin-top: 8px; padding-left: 1rem; }
-  .tl-list li { font-size: 0.82rem; color: var(--text2); margin-bottom: 4px; }
+/* skills */
+.skills{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem 3rem}
+.sk-top{display:flex;justify-content:space-between;font-weight:500}
+.sk-top span:last-child{font-family:var(--mono);color:var(--brand2);font-size:.85rem}
+.sk p{color:var(--mut);font-size:.88rem;margin:.2rem 0 .7rem}
+.bar{height:6px;border-radius:9px;background:var(--bg2);overflow:hidden}
+.alt .bar{background:var(--bg)}
+.bar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:width 1.3s cubic-bezier(.2,.7,.2,1)}
 
-  /* ── GALLERY ── */
-  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
-  .gallery-card {
-    border-radius: 14px; overflow: hidden; border: 1px solid var(--border);
-    position: relative; aspect-ratio: 4/3; background: var(--card); cursor: pointer;
-  }
-  .gallery-card img { width:100%; height:100%; object-fit:cover; transition: transform 0.4s; }
-  .gallery-card:hover img { transform: scale(1.04); }
-  .gallery-overlay {
-    position: absolute; inset:0; background: rgba(0,0,0,0.55);
-    display: flex; align-items: flex-end; padding: 1rem;
-    opacity: 0; transition: opacity 0.3s;
-  }
-  .gallery-card:hover .gallery-overlay { opacity: 1; }
-  .gallery-label { color: #fff; font-size: 0.85rem; font-weight: 500; }
+/* projects */
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.4rem}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,border-color .3s,box-shadow .3s}
+.pc:hover{transform:translateY(-6px);border-color:var(--brand);box-shadow:0 24px 50px -24px var(--glow)}
+.thumb{height:170px;display:grid;place-items:center;font-size:2.6rem;color:var(--brand2);background:radial-gradient(circle at 30% 20%,var(--glow),transparent 70%),var(--bg2);border-bottom:1px solid var(--line)}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.pb{padding:1.5rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.tag{font-family:var(--mono);font-size:.78rem;color:var(--brand2)}
+.pb h3{font-size:1.35rem}
+.pb p{color:var(--mut);font-size:.93rem;flex:1}
+.pb a{display:inline-flex;gap:8px;align-items:center;text-decoration:none;font-weight:500;margin-top:.6rem;color:var(--text)}
+.pb a:hover{color:var(--brand2)}
+.pb .soon{color:var(--mut)}
 
-  /* ── AWARDS ── */
-  #awards { background: var(--bg2); }
-  .award-card {
-    display: flex; gap: 2rem; align-items: center;
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 2rem;
-  }
-  .award-img { width: 160px; height: 160px; border-radius: 12px; overflow: hidden; flex-shrink: 0; }
-  .award-img img { width:100%; height:100%; object-fit:cover; }
-  .award-badge { display: inline-block; background: var(--accent-glow); color: var(--accent2); font-size: 0.78rem; padding: 4px 12px; border-radius: 20px; margin-top: 8px; }
+/* resume */
+.res{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem}
+.res h3{font-size:1.4rem;margin-bottom:1.6rem;display:flex;align-items:center;gap:10px}
+.res h3 i{color:var(--brand2);font-size:1.1rem}
+.tl{position:relative;padding:0 0 2rem 1.6rem;border-left:2px solid var(--line)}
+.tl::before{content:'';position:absolute;left:-6px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 4px var(--glow)}
+.tl small{font-family:var(--mono);color:var(--brand2);font-size:.78rem}
+.tl h4{font-family:var(--display);font-size:1.1rem;margin:.1rem 0}
+.tl .o{color:var(--mut);font-size:.9rem}
+.tl p,.tl li{color:var(--mut);font-size:.9rem}
+.tl p{margin-top:.4rem}.tl ul{margin:.5rem 0 0 1.1rem}
 
-  /* ── PROJECTS ── */
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
-  .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: transform 0.2s, border-color 0.2s; }
-  .project-card:hover { transform: translateY(-4px); border-color: rgba(59,130,246,0.4); }
-  .project-thumb { height: 200px; background: var(--bg3); overflow: hidden; position: relative; }
-  .project-thumb img { width:100%; height:100%; object-fit:cover; transition: transform 0.4s; }
-  .project-card:hover .project-thumb img { transform: scale(1.05); }
-  .project-thumb-placeholder { width:100%; height:100%; display:flex; align-items:center; justify-content:center; color: var(--text2); font-size: 3rem; }
-  .project-body { padding: 1.25rem; }
-  .project-cat { font-size: 0.75rem; color: var(--accent2); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
-  .project-title { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-  .project-desc { font-size: 0.85rem; color: var(--text2); margin-bottom: 1rem; }
-  .project-links { display: flex; gap: 10px; }
-  .project-links a { font-size: 0.8rem; color: var(--accent2); text-decoration: none; display: flex; align-items: center; gap: 5px; border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; transition: all 0.2s; }
-  .project-links a:hover { border-color: var(--accent); }
+/* gallery + award */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:190px;gap:1rem}
+.gal figure{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.gal figure:first-child{grid-column:span 2;grid-row:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.gal figure:hover img{transform:scale(1.06)}
+.gal figcaption{position:absolute;inset:auto 0 0 0;padding:2rem 1rem .9rem;color:#fff;font-size:.88rem;font-weight:500;background:linear-gradient(transparent,rgba(0,0,0,.75));transform:translateY(60%);opacity:0;transition:.35s}
+.gal figure:hover figcaption,.gal figure:focus-within figcaption{transform:none;opacity:1}
+.award{display:grid;grid-template-columns:240px 1fr;gap:2.5rem;align-items:center;margin-top:3rem;padding:1.5rem;background:var(--card);border:1px solid var(--line);border-radius:20px}
+.award img{width:100%;border-radius:12px;display:block}
+.award h3{font-size:1.5rem}
+.award .ev{color:var(--brand2);font-weight:600;margin:.4rem 0 .1rem}
+.award p{color:var(--mut);font-size:.93rem}
+.award .b{display:inline-block;margin-top:1rem;padding:5px 14px;border-radius:99px;background:var(--glow);color:var(--brand2);font-size:.85rem;font-weight:500}
 
-  /* ── SERVICES ── */
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
-  .service-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; }
-  .service-icon { width: 48px; height: 48px; background: var(--accent-glow); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--accent2); font-size: 1.4rem; }
-  .service-title { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-  .service-desc { font-size: 0.85rem; color: var(--text2); }
+/* services */
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.sv{background:var(--card);padding:2rem 1.6rem;transition:background .3s}
+.sv:hover{background:var(--bg2)}
+.sv i{font-size:1.4rem;color:var(--brand2);margin-bottom:1.1rem;display:block;transition:transform .3s}
+.sv:hover i{transform:translateY(-3px) scale(1.1)}
+.sv h3{font-size:1.15rem;margin-bottom:.5rem}
+.sv p{color:var(--mut);font-size:.9rem}
 
-  /* ── FAQ ── */
-  #faq { background: var(--bg2); }
-  .faq-wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
-  .faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-  .faq-q { padding: 1.1rem 1.25rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 500; color: var(--text); user-select: none; }
-  .faq-q i { color: var(--text2); transition: transform 0.3s; font-size: 0.9rem; }
-  .faq-item.open .faq-q i { transform: rotate(180deg); color: var(--accent2); }
-  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s; color: var(--text2); font-size: 0.9rem; }
-  .faq-item.open .faq-a { max-height: 200px; padding: 0 1.25rem 1.1rem; }
+/* faq */
+.faq{max-width:760px}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:1.2rem 0;font-weight:500;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';font-family:var(--mono);font-size:1.4rem;color:var(--brand2);transition:transform .3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--mut);padding:0 2rem 1.3rem 0;animation:up .35s ease both}
 
-  /* ── CONTACT ── */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-  .contact-item { display: flex; align-items: center; gap: 14px; padding: 1rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--text); margin-bottom: 12px; transition: border-color 0.2s; }
-  .contact-item:hover { border-color: var(--accent); }
-  .contact-item i { color: var(--accent2); font-size: 1.1rem; width: 20px; text-align: center; }
-  .contact-item span { font-size: 0.9rem; }
-  .wa-btn {
-    display: flex; align-items: center; gap: 10px;
-    background: #25d366; color: #fff; border: none;
-    padding: 12px 24px; border-radius: 10px; cursor: pointer;
-    font-size: 0.9rem; font-weight: 600; text-decoration: none;
-    width: 100%; justify-content: center; margin-top: 4px; transition: background 0.2s;
-  }
-  .wa-btn:hover { background: #1dbd5b; }
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;padding:3rem;border-radius:24px;border:1px solid var(--line);background:radial-gradient(600px circle at 90% 0,var(--glow),transparent 70%),var(--card)}
+.contact h2{font-size:clamp(2rem,4vw,3rem);font-weight:800}
+.contact>div>p{color:var(--mut);margin-top:1rem;max-width:44ch}
+.cl{display:flex;flex-direction:column;gap:.8rem}
+.cl a{display:flex;align-items:center;gap:14px;text-decoration:none;padding:.9rem 1.1rem;border:1px solid var(--line);border-radius:14px;background:var(--bg);transition:.2s;word-break:break-word}
+.cl a:hover{border-color:var(--brand);transform:translateX(4px)}
+.cl i{width:20px;text-align:center;color:var(--brand2)}
+.cl a.wa{background:var(--brand);border-color:var(--brand);color:#fff}
+.cl a.wa i{color:#fff}
+.soc{display:flex;gap:10px;margin-top:1.6rem}
+.soc a{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--mut);transition:.2s}
+.soc a:hover{color:var(--text);border-color:var(--brand);transform:translateY(-3px)}
+footer{padding:2rem 0;border-top:1px solid var(--line);color:var(--mut);font-size:.88rem}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
 
-  /* ── FOOTER ── */
-  footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
-  .footer-social { display: flex; justify-content: center; gap: 14px; margin: 1rem 0; }
-  .footer-social a { width: 38px; height: 38px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text2); text-decoration: none; transition: all 0.2s; font-size: 0.9rem; }
-  .footer-social a:hover { border-color: var(--accent); color: var(--accent2); }
-  footer p { color: var(--text2); font-size: 0.85rem; }
-  footer strong { color: var(--text); }
+/* scroll reveal (kept subtle, sections only) */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+.rv.vis{opacity:1;transform:none}
 
-  /* ── WHATSAPP FLOAT ── */
-  .wa-float {
-    position: fixed; bottom: 2rem; right: 2rem;
-    width: 52px; height: 52px; background: #25d366;
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 1.4rem; text-decoration: none;
-    box-shadow: 0 4px 16px rgba(37,211,102,0.4);
-    z-index: 900; transition: transform 0.2s;
-    animation: wa-pop 0.4s ease;
-  }
-  .wa-float:hover { transform: scale(1.12); }
-  @keyframes wa-pop { from{transform:scale(0)} to{transform:scale(1)} }
-
-  /* ── SCROLL TOP ── */
-  .scroll-top {
-    position: fixed; bottom: 5.5rem; right: 2rem;
-    width: 40px; height: 40px; background: var(--card);
-    border: 1px solid var(--border); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--text2); cursor: pointer; font-size: 0.9rem;
-    z-index: 900; opacity: 0; transition: opacity 0.3s, transform 0.2s;
-    text-decoration: none;
-  }
-  .scroll-top.visible { opacity: 1; }
-  .scroll-top:hover { transform: translateY(-2px); color: var(--accent2); }
-
-  /* ── REVEAL ── */
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .hamburger { display: flex; }
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-photo { display: none; }
-    .about-grid { grid-template-columns: 1fr; }
-    .about-img { width: 100%; height: 260px; }
-    .resume-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .award-card { flex-direction: column; text-align: center; }
-    .hero-stats { gap: 1.5rem; }
-  }
+@media(max-width:900px){
+  .links{display:none}.burger{display:block}
+  .hero .wrap,.about,.res,.contact,.award,.skills{grid-template-columns:1fr}
+  .win{transform:none}.photo{right:8px}
+  .about-img{max-width:300px}
+  .gal{grid-template-columns:1fr 1fr}.gal figure:first-child{grid-column:span 2;grid-row:span 1}
+  section{padding:4.5rem 0}.contact{padding:2rem}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+  .in,.rv{opacity:1;transform:none}.ln{width:calc(var(--n)*1ch)}
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">
-    <img src="source/images/AAG Logo.png" alt="AAG Logo">
-    <span>Ahsan Amin Gorsi</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#hero">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#resume">Resume</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <div class="nav-actions">
-    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
-    <button class="hamburger" id="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+  <div class="wrap nav-in">
+    <a href="#top" class="logo"><img src="source/images/AAG Logo.png" alt="" onerror="this.style.display='none'"><span>Ahsan Amin Gorsi</span></a>
+    <ul class="links">
+      <li><a href="#about">About</a></li><li><a href="#projects">Projects</a></li><li><a href="#resume">Resume</a></li>
+      <li><a href="#services">Services</a></li><li><a href="#faq">FAQ</a></li><li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="acts">
+      <button class="ib" id="themeBtn" aria-label="Switch color theme"><i class="fas fa-sun"></i></button>
+      <button class="ib burger" id="burger" aria-label="Open menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
+    </div>
   </div>
 </nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#hero">Home</a>
-  <a href="#about">About</a>
-  <a href="#resume">Resume</a>
-  <a href="#projects">Projects</a>
-  <a href="#services">Services</a>
-  <a href="#contact">Contact</a>
+<div class="mm" id="mm">
+  <a href="#about">About</a><a href="#projects">Projects</a><a href="#resume">Resume</a><a href="#services">Services</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
 </div>
 
-<!-- HERO -->
-<section id="hero" class="hero">
-  <div class="hero-inner">
+<header class="hero" id="top">
+  <div class="wrap">
     <div>
-      <div class="hero-tag">Available for Freelance Projects</div>
-      <h1>I Build <span>Practical Web</span> Applications with .NET & C#</h1>
-      <p class="hero-sub">Hi, I'm <strong>Ahsan Amin</strong> — a BSCS student and .NET C# Developer building clean, scalable web applications using ASP.NET MVC, SQL Server, and modern frontend tools.</p>
-      <div class="hero-btns">
-        <a href="#projects" class="btn btn-primary"><i class="fas fa-eye"></i> Explore My Work</a>
-        <a href="#contact" class="btn btn-outline"><i class="fas fa-envelope"></i> Get In Touch</a>
-        <a href="source/Resume/Ahsan Amin - Resume.pdf" class="btn btn-outline" target="_blank"><i class="fas fa-download"></i> Download CV</a>
+      <div class="pill in" style="--d:1"><span class="dot"></span>Available for freelance projects</div>
+      <h1 class="in" style="--d:2">Practical web apps, built with <em>.NET &amp; C#</em></h1>
+      <p class="sub in" style="--d:3">Hi, I'm <strong>Ahsan Amin</strong>, a BSCS student and .NET developer. I build clean, scalable web applications with ASP.NET MVC, SQL Server and modern frontend tools.</p>
+      <div class="btns in" style="--d:4">
+        <a href="#projects" class="btn p"><i class="fas fa-eye"></i>See my projects</a>
+        <a href="#contact" class="btn"><i class="fas fa-envelope"></i>Contact me</a>
+        <a href="source/Resume/Ahsan Amin - Resume.pdf" class="btn" target="_blank" rel="noopener"><i class="fas fa-download"></i>Download CV</a>
       </div>
-      <div class="hero-stats">
-        <div><div class="stat-num">3+</div><div class="stat-lbl">Years Learning</div></div>
-        <div><div class="stat-num">10+</div><div class="stat-lbl">Projects Done</div></div>
-        <div><div class="stat-num">1</div><div class="stat-lbl">Mission</div></div>
+      <div class="stats in" style="--d:5">
+        <div><b data-count="3">3+</b><span>Years learning</span></div>
+        <div><b data-count="10">10+</b><span>Projects done</span></div>
       </div>
     </div>
-    <div class="hero-photo reveal">
-      <img src="source/images/Hero img 2.jpg" alt="Ahsan Amin Gorsi">
-      <div class="hero-badge">
-        <div class="badge-dot"></div>
-        <span>Open to Work</span>
+    <div class="win-wrap in" style="--d:3">
+      <div class="win" aria-label="C# code snippet describing Ahsan">
+        <div class="win-bar"><i></i><i></i><i></i><span>Developer.cs</span></div>
+        <div class="code">
+          <span class="ln" style="--n:32;--i:0"><span class="k">public class</span> <span class="t">Ahsan</span> : <span class="t">IDeveloper</span></span>
+          <span class="ln" style="--n:1;--i:1">{</span>
+          <span class="ln" style="--n:40;--i:2">  <span class="k">string</span> Role   = <span class="s">".NET C# Web Developer"</span>;</span>
+          <span class="ln" style="--n:43;--i:3">  <span class="k">string</span> Stack  = <span class="s">"ASP.NET MVC, SQL Server"</span>;</span>
+          <span class="ln" style="--n:44;--i:4">  <span class="k">string</span> Study  = <span class="s">"BSCS, University of Kotli"</span>;</span>
+          <span class="ln" style="--n:34;--i:5">  <span class="k">bool</span>   OpenToWork = <span class="k">true</span>;</span>
+          <span class="ln" style="--n:26;--i:6">  <span class="c">// clean code, real problems</span></span>
+          <span class="ln" style="--n:1;--i:7">}<span class="caret"></span></span>
+        </div>
+      </div>
+      <img class="photo" src="source/images/Hero img 2.jpg" alt="Ahsan Amin Gorsi" onerror="this.style.display='none'">
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="about" class="alt">
+  <div class="wrap about rv">
+    <div class="about-img"><img src="source/images/Profile img.png" alt="Portrait of Ahsan Amin Gorsi" onerror="this.style.display='none'"></div>
+    <div>
+      <div class="head" style="margin-bottom:1.5rem"><h2>About me</h2></div>
+      <h3>.NET C# Web Developer</h3>
+      <p>I'm a BSCS student at the University of Kotli, Azad Kashmir. I love building modern, responsive and scalable web applications.</p>
+      <p>I focus on continuous learning, clean code, and solving real-world problems with technology.</p>
+      <div class="facts">
+        <div><small>Name</small><span>Ahsan Amin</span></div>
+        <div><small>Age</small><span>21 years</span></div>
+        <div><small>Phone</small><span>0349 5473628</span></div>
+        <div><small>Email</small><span>ahsanamingorsi@gmail.com</span></div>
+        <div><small>Occupation</small><span>.NET C# Web Developer</span></div>
+        <div><small>Nationality</small><span>Pakistani</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="sec-header reveal">
-      <div class="sec-tag">Who I Am</div>
-      <h2>About Me</h2>
-      <p>Passionate .NET C# Web Developer and BSCS student who loves building creative, functional, and impactful digital solutions.</p>
-    </div>
-    <div class="about-grid reveal">
-      <div>
-        <div class="about-img">
-          <img src="source/images/Profile img.png" alt="Ahsan Amin Gorsi Profile">
-        </div>
-      </div>
-      <div>
-        <h3 style="font-size:1.5rem; font-weight:700; margin-bottom:1rem; color:var(--text);">.NET C# Web Developer</h3>
-        <p style="color:var(--text2); margin-bottom:1rem;">I'm a passionate .NET C# Web Developer and BSCS student at the University of Kotli, Azad Kashmir. I love building modern, responsive, and scalable web applications.</p>
-        <p style="color:var(--text2); margin-bottom:1.5rem;">My focus is on continuous learning, clean code, and solving real-world problems through technology and innovation.</p>
-        <div class="about-info">
-          <div class="info-row"><div class="info-lbl">Name</div><div class="info-val">Ahsan Amin</div></div>
-          <div class="info-row"><div class="info-lbl">Phone</div><div class="info-val">0349 5473628</div></div>
-          <div class="info-row"><div class="info-lbl">Age</div><div class="info-val">21 Years</div></div>
-          <div class="info-row"><div class="info-lbl">Email</div><div class="info-val" style="font-size:0.8rem;">ahsanamingorsi@gmail.com</div></div>
-          <div class="info-row"><div class="info-lbl">Occupation</div><div class="info-val" style="font-size:0.82rem;">.NET C# Web Developer</div></div>
-          <div class="info-row"><div class="info-lbl">Nationality</div><div class="info-val">Pakistani</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
 <section id="skills">
-  <div class="container">
-    <div class="sec-header reveal">
-      <div class="sec-tag">What I Know</div>
-      <h2>My Skills</h2>
-    </div>
-    <div class="skills-grid">
-      <!-- TO ADD A SKILL: copy one .skill-card block below and change the values -->
-      <div class="skill-card reveal">
-        <div class="skill-header"><span class="skill-name">HTML & CSS</span><span class="skill-pct">90%</span></div>
-        <p class="skill-desc">Responsive, accessible interfaces with semantic, clean code.</p>
-        <div class="skill-bar"><div class="skill-fill" data-w="90"></div></div>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-header"><span class="skill-name">C# / ASP.NET MVC</span><span class="skill-pct">85%</span></div>
-        <p class="skill-desc">Data-driven web apps with strong architecture and clean backend logic.</p>
-        <div class="skill-bar"><div class="skill-fill" data-w="85"></div></div>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-header"><span class="skill-name">TypeScript</span><span class="skill-pct">80%</span></div>
-        <p class="skill-desc">Modern, efficient, and reusable interactive scripts.</p>
-        <div class="skill-bar"><div class="skill-fill" data-w="80"></div></div>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-header"><span class="skill-name">SQL Server</span><span class="skill-pct">78%</span></div>
-        <p class="skill-desc">Database design, queries, and backend data management.</p>
-        <div class="skill-bar"><div class="skill-fill" data-w="78"></div></div>
-      </div>
-      <div class="skill-card reveal">
-        <div class="skill-header"><span class="skill-name">Graphic Design</span><span class="skill-pct">70%</span></div>
-        <p class="skill-desc">Posters, social media visuals, and event branding.</p>
-        <div class="skill-bar"><div class="skill-fill" data-w="70"></div></div>
-      </div>
+  <div class="wrap">
+    <div class="head rv"><h2>Skills</h2><p>The tools I use to design, build and ship.</p></div>
+    <div class="skills rv">
+      <div class="sk"><div class="sk-top"><span>HTML &amp; CSS</span><span>90%</span></div><p>Responsive, accessible interfaces with semantic code.</p><div class="bar"><i data-w="90"></i></div></div>
+      <div class="sk"><div class="sk-top"><span>C# / ASP.NET MVC</span><span>85%</span></div><p>Data-driven web apps with clean backend architecture.</p><div class="bar"><i data-w="85"></i></div></div>
+      <div class="sk"><div class="sk-top"><span>TypeScript</span><span>80%</span></div><p>Modern, reusable interactive scripts.</p><div class="bar"><i data-w="80"></i></div></div>
+      <div class="sk"><div class="sk-top"><span>SQL Server</span><span>78%</span></div><p>Database design, queries and data management.</p><div class="bar"><i data-w="78"></i></div></div>
+      <div class="sk"><div class="sk-top"><span>Graphic design</span><span>70%</span></div><p>Posters, social visuals and event branding.</p><div class="bar"><i data-w="70"></i></div></div>
     </div>
   </div>
 </section>
 
-<!-- RESUME -->
+<section id="projects" class="alt">
+  <div class="wrap">
+    <div class="head rv"><h2>Projects</h2><p>Recent .NET C# and web development work.</p></div>
+    <div class="projects rv">
+      <article class="pc">
+        <div class="thumb"><i class="fas fa-file-alt"></i></div>
+        <div class="pb"><span class="tag">ASP.NET MVC</span><h3>AskPaperGen</h3>
+          <p>An exam paper generator that helps teachers build structured question papers with sections and images.</p>
+          <a href="https://github.com/ahsanamingorsi/AskPaperGen" target="_blank" rel="noopener"><i class="fab fa-github"></i>View on GitHub</a></div>
+      </article>
+      <article class="pc">
+        <div class="thumb"><i class="fas fa-film"></i></div>
+        <div class="pb"><span class="tag">HTML, CSS, JavaScript</span><h3>Flixsan</h3>
+          <p>A movie information site that shows trending movies dynamically from external APIs.</p>
+          <a href="https://github.com/ahsanamingorsi/FlixSan" target="_blank" rel="noopener"><i class="fab fa-github"></i>View on GitHub</a></div>
+      </article>
+      <article class="pc">
+        <div class="thumb"><i class="fas fa-graduation-cap"></i></div>
+        <div class="pb"><span class="tag">ASP.NET MVC</span><h3>Acadivo</h3>
+          <p>An educational platform where students share and access academic materials, with profiles, file management and a points system.</p>
+          <span class="soon"><i class="fas fa-hammer"></i> In development</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section id="resume">
-  <div class="container">
-    <div class="sec-header reveal">
-      <div class="sec-tag">My Journey</div>
-      <h2>Resume</h2>
-      <p>A dedicated .NET C# Web Developer passionate about clean, efficient, scalable web solutions.</p>
-    </div>
-    <div class="resume-grid">
-      <!-- WORK EXPERIENCE -->
-      <div class="reveal">
-        <h3><i class="fas fa-briefcase"></i> Work Experience</h3>
-        <!-- TO ADD EXPERIENCE: copy a .timeline-item block and update the content -->
-        <div class="timeline-item">
-          <div class="tl-period">2025 – Present</div>
-          <div class="tl-title">Founder & Web Developer</div>
-          <div class="tl-org">Acadivo</div>
-          <div class="tl-desc">Founded and developed an educational platform to help students share and access academic materials efficiently.</div>
-          <ul class="tl-list">
-            <li>Developed responsive web platform using ASP.NET MVC and C#.</li>
-            <li>Implemented secure backend systems and file management.</li>
-            <li>Focused on performance, scalability, and deployment.</li>
-          </ul>
-        </div>
-        <div class="timeline-item">
-          <div class="tl-period">2024 – Present</div>
-          <div class="tl-title">Graphic Designer</div>
-          <div class="tl-org">SOCTECH Society, University of Kotli</div>
-          <div class="tl-desc">Designed posters, social media graphics, and event visuals for university tech events like EIC 25.</div>
-        </div>
-      </div>
-      <!-- EDUCATION -->
-      <div class="reveal">
-        <h3><i class="fas fa-graduation-cap"></i> Education</h3>
-        <!-- TO ADD EDUCATION: copy a .timeline-item block -->
-        <div class="timeline-item">
-          <div class="tl-period">2023 – 2027</div>
-          <div class="tl-title">BSCS (Bachelor of Computer Science)</div>
-          <div class="tl-org">University of Kotli, Azad Jammu & Kashmir</div>
-          <div class="tl-desc">Focused on .NET development, software engineering, networking, and information security.</div>
-        </div>
-        <div class="timeline-item">
-          <div class="tl-period">2021 – 2023</div>
-          <div class="tl-title">Intermediate in Computer Science (ICS)</div>
-          <div class="tl-org">Allama Iqbal College Seri</div>
-          <div class="tl-desc">Strong fundamentals in programming, problem-solving, and logical reasoning.</div>
-        </div>
-        <div class="timeline-item">
-          <div class="tl-period">2019 – 2021</div>
-          <div class="tl-title">Matric in Science</div>
-          <div class="tl-org">Allama Iqbal College Seri</div>
-          <div class="tl-desc">Focus on science and mathematics.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery">
-  <div class="container">
-    <div class="sec-header reveal">
-      <div class="sec-tag">Moments</div>
-      <h2>Gallery</h2>
-      <p>Events, award ceremonies, and behind the scenes</p>
-    </div>
-    <div class="gallery-grid">
-      <!-- TO ADD GALLERY IMAGE: copy one .gallery-card div below, change src and label -->
-      <div class="gallery-card reveal">
-        <img src="source/images/eic-award-stage.jpg" alt="EIC 25 Award Ceremony">
-        <div class="gallery-overlay"><div class="gallery-label"><i class="fas fa-trophy" style="margin-right:6px"></i>EIC 25 Award Ceremony</div></div>
-      </div>
-      <!-- ADD MORE IMAGES HERE -->
-      <div class="gallery-card reveal">
-        <img src="source/images/E-Gala 2026.jpeg" alt="Description">
-        <div class="gallery-overlay"><div class="gallery-label">E-Gala 2026</div></div>
-      </div>
-      <div class="gallery-card reveal">
-        <img src="source/images/E-Gala 2026 {Apprication Certificate ).jpeg" alt="Description">
-        <div class="gallery-overlay"><div class="gallery-label">E-Gala 2026 {Apprication Certificate )</div></div>
-      </div>
-      <div class="gallery-card reveal">
-        <img src="source/images/SEC MEDIA TEAM 2024.jpg" alt="Description">
-        <div class="gallery-overlay"><div class="gallery-label">SEC 2024 MEDIA TEAM</div></div>
-      </div>
-      <div class="gallery-card reveal">
-        <img src="source/images/EIC-25 Team Graphics.jpg" alt="Description">
-        <div class="gallery-overlay"><div class="gallery-label">EIC-25 Team Graphics</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- AWARDS -->
-<section id="awards">
-  <div class="container">
-    <div class="sec-header reveal">
-      <div class="sec-tag">Recognition</div>
-      <h2>Awards & Achievements</h2>
-      <p>Honors received for contributions and academic excellence</p>
-    </div>
-    <!-- TO ADD AN AWARD: copy the .award-card block below -->
-    <div class="award-card reveal">
-      <div class="award-img">
-        <img src="source/images/Award.jpeg" alt="EIC 25 Recognition Award">
+  <div class="wrap">
+    <div class="head rv"><h2>Resume</h2><p>Experience and education so far.</p></div>
+    <div class="res rv">
+      <div>
+        <h3><i class="fas fa-briefcase"></i>Experience</h3>
+        <div class="tl"><small>2025 – Present</small><h4>Founder &amp; Web Developer</h4><div class="o">Acadivo</div>
+          <p>Founded and built an educational platform for sharing academic materials.</p>
+          <ul><li>Built a responsive platform with ASP.NET MVC and C#.</li><li>Implemented secure backend systems and file management.</li><li>Focused on performance, scalability and deployment.</li></ul></div>
+        <div class="tl"><small>2024 – Present</small><h4>Graphic Designer</h4><div class="o">SOCTECH Society, University of Kotli</div>
+          <p>Designed posters, social media graphics and event visuals for university tech events like EIC 25.</p></div>
       </div>
       <div>
-        <h3 style="font-size:1.2rem; font-weight:700; color:var(--text);">Recognition Award</h3>
-        <p style="color:var(--accent2); font-weight:600; margin:6px 0 2px;">Entrepreneurship Innovation Conference 2025 (EIC 25)</p>
-        <p style="color:var(--text2); font-size:0.9rem;">University of Kotli AJK · 2025</p>
-        <p style="color:var(--text2); font-size:0.88rem; margin-top:8px;">Recognized for outstanding contributions in graphic design and media production for the EIC 25 university conference.</p>
-        <div class="award-badge">★ Excellence in Design & Content Creation</div>
+        <h3><i class="fas fa-graduation-cap"></i>Education</h3>
+        <div class="tl"><small>2023 – 2027</small><h4>BSCS, Computer Science</h4><div class="o">University of Kotli, Azad Jammu &amp; Kashmir</div>
+          <p>Focus on .NET development, software engineering, networking and information security.</p></div>
+        <div class="tl"><small>2021 – 2023</small><h4>Intermediate in Computer Science</h4><div class="o">Allama Iqbal College Seri</div>
+          <p>Strong fundamentals in programming, problem-solving and logical reasoning.</p></div>
+        <div class="tl"><small>2019 – 2021</small><h4>Matric in Science</h4><div class="o">Allama Iqbal College Seri</div>
+          <p>Focus on science and mathematics.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="sec-header reveal">
-      <div class="sec-tag">My Work</div>
-      <h2>Projects</h2>
-      <p>A collection of my latest .NET C# and web development projects.</p>
+<section id="gallery" class="alt">
+  <div class="wrap">
+    <div class="head rv"><h2>Gallery and awards</h2><p>Events, ceremonies and behind the scenes.</p></div>
+    <div class="gal rv">
+      <figure><img src="source/images/eic-award-stage.jpg" alt="EIC 25 award ceremony" loading="lazy" onerror="this.style.display='none'"><figcaption><i class="fas fa-trophy"></i> EIC 25 Award Ceremony</figcaption></figure>
+      <figure><img src="source/images/E-Gala 2026.jpeg" alt="E-Gala 2026" loading="lazy" onerror="this.style.display='none'"><figcaption>E-Gala 2026</figcaption></figure>
+      <figure><img src="source/images/E-Gala 2026 {Apprication Certificate ).jpeg" alt="E-Gala 2026 appreciation certificate" loading="lazy" onerror="this.style.display='none'"><figcaption>E-Gala 2026 Appreciation Certificate</figcaption></figure>
+      <figure><img src="source/images/SEC MEDIA TEAM 2024.jpg" alt="SEC 2024 media team" loading="lazy" onerror="this.style.display='none'"><figcaption>SEC 2024 Media Team</figcaption></figure>
+      <figure><img src="source/images/EIC-25 Team Graphics.jpg" alt="EIC-25 team graphics" loading="lazy" onerror="this.style.display='none'"><figcaption>EIC-25 Team Graphics</figcaption></figure>
     </div>
-    <div class="projects-grid">
-      <!-- TO ADD A PROJECT: copy one .project-card div, update category, title, desc, links, and image -->
-
-      <div class="project-card reveal">
-        <div class="project-thumb">
-          <!-- If you have a screenshot, replace the placeholder with: <img src="assets/img/Projects/askpapergen.png" alt="AskPaperGen"> -->
-          <div class="project-thumb-placeholder"><i class="fas fa-file-alt"></i></div>
-        </div>
-        <div class="project-body">
-          <div class="project-cat">ASP.NET MVC</div>
-          <div class="project-title">AskPaperGen</div>
-          <p class="project-desc">A smart examination paper generator built using ASP.NET MVC. Helps teachers create structured question papers efficiently with sections and images.</p>
-          <div class="project-links">
-            <a href="https://github.com/ahsanamingorsi/AskPaperGen"><i class="fab fa-github"><!--fas fa-arrow-right--></i> GitHub</a>
-          </div>
-        </div>
+    <div class="award rv">
+      <img src="source/images/Award.jpeg" alt="EIC 25 recognition award" loading="lazy" onerror="this.style.display='none'">
+      <div>
+        <h3>Recognition Award</h3>
+        <p class="ev">Entrepreneurship Innovation Conference 2025 (EIC 25)</p>
+        <p>University of Kotli AJK, 2025</p>
+        <p style="margin-top:.7rem">Recognized for outstanding contributions in graphic design and media production for the EIC 25 conference.</p>
+        <span class="b"><i class="fas fa-star"></i> Excellence in design and content creation</span>
       </div>
-
-      <div class="project-card reveal">
-        <div class="project-thumb">
-          <div class="project-thumb-placeholder"><i class="fas fa-film"></i></div>
-        </div>
-        <div class="project-body">
-          <div class="project-cat">Web Development</div>
-          <div class="project-title">Flixsan</div>
-          <p class="project-desc">A modern movie information website built using HTML, CSS, and JavaScript that displays trending movies dynamically via external APIs.</p>
-          <div class="project-links">
-            <a href="https://github.com/ahsanamingorsi/FlixSan" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card reveal">
-        <div class="project-thumb">
-          <div class="project-thumb-placeholder"><i class="fas fa-graduation-cap"></i></div>
-        </div>
-        <div class="project-body">
-          <div class="project-cat">ASP.NET MVC</div>
-          <div class="project-title">Acadivo</div>
-          <p class="project-desc">Educational web platform for students to share and access academic materials. Features user profiles, file management, and a points system.</p>
-          <div class="project-links">
-            <a href="#"><i class="fas fa-external-link-alt"></i> Under Development</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- ADD MORE PROJECTS HERE:
-      <div class="project-card reveal">
-        <div class="project-thumb">
-          <img src="assets/img/Projects/yourproject.png" alt="Project Name">
-        </div>
-        <div class="project-body">
-          <div class="project-cat">Category</div>
-          <div class="project-title">Project Name</div>
-          <p class="project-desc">Short description of what this project does.</p>
-          <div class="project-links">
-            <a href="link"><i class="fas fa-arrow-right"></i> View</a>
-            <a href="github_link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-          </div>
-        </div>
-      </div>
-      -->
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
 <section id="services">
-  <div class="container">
-    <div class="sec-header reveal">
-      <div class="sec-tag">What I Offer</div>
-      <h2>Services</h2>
-      <p>Turning ideas into reality through clean code, innovative solutions, and reliable development.</p>
-    </div>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <div class="service-icon"><i class="fas fa-code"></i></div>
-        <div class="service-title">Web Development</div>
-        <p class="service-desc">Custom websites and web apps built with HTML, CSS, JavaScript, and ASP.NET MVC. Clean code, responsive design, and solid performance.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon"><i class="fas fa-database"></i></div>
-        <div class="service-title">Backend Development</div>
-        <p class="service-desc">Robust backend systems using C# and SQL Server. Secure data handling, API design, and scalable architecture.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
-        <div class="service-title">UI/UX & Graphic Design</div>
-        <p class="service-desc">Designing intuitive interfaces and engaging visuals — from user flows to event posters and social media graphics.</p>
-      </div>
-      <div class="service-card reveal">
-        <div class="service-icon"><i class="fas fa-lightbulb"></i></div>
-        <div class="service-title">Tech Consultation</div>
-        <p class="service-desc">Expert advice on project planning, technology stack selection, and digital strategy for optimal results.</p>
-      </div>
+  <div class="wrap">
+    <div class="head rv"><h2>Services</h2><p>Clean code, clear communication and reliable delivery.</p></div>
+    <div class="svc rv">
+      <div class="sv"><i class="fas fa-code"></i><h3>Web development</h3><p>Custom websites and web apps with HTML, CSS, JavaScript and ASP.NET MVC. Responsive and fast.</p></div>
+      <div class="sv"><i class="fas fa-database"></i><h3>Backend development</h3><p>Robust systems in C# and SQL Server, with secure data handling, API design and scalable architecture.</p></div>
+      <div class="sv"><i class="fas fa-pen-nib"></i><h3>UI/UX and graphic design</h3><p>Intuitive interfaces and engaging visuals, from user flows to event posters and social graphics.</p></div>
+      <div class="sv"><i class="fas fa-lightbulb"></i><h3>Tech consultation</h3><p>Advice on project planning, technology stack selection and digital strategy.</p></div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section id="faq">
-  <div class="container">
-    <div class="sec-header reveal">
-      <div class="sec-tag">Questions</div>
-      <h2>Frequently Asked</h2>
-    </div>
-    <div class="faq-wrap">
-      <!-- TO ADD FAQ: copy one .faq-item block -->
-      <div class="faq-item reveal">
-        <div class="faq-q">What services do you offer? <i class="fas fa-chevron-down"></i></div>
-        <div class="faq-a">I provide web development, backend development, graphic design, and tech consultation services tailored to meet client needs with a focus on quality and creativity.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q">How long does a typical project take? <i class="fas fa-chevron-down"></i></div>
-        <div class="faq-a">Small websites may take 1–2 weeks, while larger web applications could take 4–8 weeks depending on complexity and requirements.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q">Which technologies do you work with? <i class="fas fa-chevron-down"></i></div>
-        <div class="faq-a">I specialize in HTML, CSS, JavaScript, Bootstrap, C#, ASP.NET MVC, and SQL Server — with a focus on clean, reliable, and maintainable solutions.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q">Do you offer ongoing support? <i class="fas fa-chevron-down"></i></div>
-        <div class="faq-a">Absolutely! I offer maintenance and support services to ensure your website stays updated, secure, and optimized long after launch.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q">Are you available for freelance work? <i class="fas fa-chevron-down"></i></div>
-        <div class="faq-a">Yes, I'm available for freelance projects. Feel free to reach out via email or WhatsApp and we can discuss your project requirements.</div>
-      </div>
+<section id="faq" class="alt">
+  <div class="wrap">
+    <div class="head rv"><h2>Frequently asked questions</h2></div>
+    <div class="faq rv">
+      <details><summary>What services do you offer?</summary><p>Web development, backend development, graphic design and tech consultation, tailored to your needs with a focus on quality and creativity.</p></details>
+      <details><summary>How long does a typical project take?</summary><p>Small websites take 1–2 weeks. Larger web applications take 4–8 weeks, depending on complexity and requirements.</p></details>
+      <details><summary>Which technologies do you work with?</summary><p>HTML, CSS, JavaScript, Bootstrap, C#, ASP.NET MVC and SQL Server, with a focus on clean, reliable and maintainable solutions.</p></details>
+      <details><summary>Do you offer ongoing support?</summary><p>Yes. I offer maintenance and support to keep your website updated, secure and optimized long after launch.</p></details>
+      <details><summary>Are you available for freelance work?</summary><p>Yes. Email or message me on WhatsApp and we can talk through your project.</p></details>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
-  <div class="container">
-    <div class="sec-header reveal">
-      <div class="sec-tag">Let's Talk</div>
-      <h2>Get In Touch</h2>
-      <p>Available for web development projects, tech consultation, or collaboration. Reach out and let's discuss your ideas!</p>
-    </div>
-    <div class="contact-grid">
-      <div class="reveal">
-        <a href="mailto:ahsanamingorsi@gmail.com" class="contact-item">
-          <i class="fas fa-envelope"></i><span>ahsanamingorsi@gmail.com</span>
-        </a>
-        <a href="tel:+923495473628" class="contact-item">
-          <i class="fas fa-phone"></i><span>+92 349 5473628</span>
-        </a>
-        <a href="https://www.google.com/maps/search/?api=1&query=Khuiratta,+Kotli,+Azad+Kashmir" target="_blank" class="contact-item">
-          <i class="fas fa-map-marker-alt"></i><span>Khuiratta, Kotli, Azad Kashmir, Pakistan</span>
-        </a>
-        <a href="https://wa.me/923495473628" target="_blank" class="wa-btn">
-          <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-        </a>
+  <div class="wrap">
+    <div class="contact rv">
+      <div>
+        <h2>Let's build something together</h2>
+        <p>Available for web development projects, tech consultation or collaboration. I usually reply within 24 hours.</p>
+        <div class="soc">
+          <a href="https://github.com/ahsanamingorsi" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/ahsanamingorsi" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.instagram.com/ahsanamingorsi" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
       </div>
-      <div class="service-card reveal">
-        <div class="service-icon"><i class="fas fa-handshake"></i></div>
-        <div class="service-title">Let's Work Together</div>
-        <p class="service-desc" style="margin-bottom:1rem;">I typically respond within 24 hours for project inquiries and collaboration opportunities.</p>
-        <p class="service-desc">Feel free to reach out through any of the channels listed — email, phone, or WhatsApp.</p>
+      <div class="cl">
+        <a class="wa" href="https://wa.me/923495473628" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i>Chat on WhatsApp</a>
+        <a href="mailto:ahsanamingorsi@gmail.com"><i class="fas fa-envelope"></i>ahsanamingorsi@gmail.com</a>
+        <a href="tel:+923495473628"><i class="fas fa-phone"></i>+92 349 5473628</a>
+        <a href="#contact"><i class="fas fa-location-dot"></i>Khuiratta, Kotli, Azad Kashmir, Pakistan</a>
       </div>
     </div>
   </div>
 </section>
+</main>
 
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <div class="footer-social">
-      <a href="https://x.com/ahsanamingorsi" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-      <a href="https://www.facebook.com/share/1Cjf5EfiFf/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-      <a href="https://www.instagram.com/ahsanamingorsi" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="https://www.linkedin.com/in/ahsanamingorsi" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-      <a href="https://github.com/ahsanamingorsi" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-    </div>
-    <p>© 2025 <strong>Ahsan Amin Gorsi</strong> · All Rights Reserved</p>
-    <p style="margin-top:6px; font-size:0.8rem;">Designed & Developed by <strong>Ahsan Amin</strong></p>
-  </div>
-</footer>
-
-<!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/923495473628" target="_blank" class="wa-float" aria-label="WhatsApp">
-  <i class="fab fa-whatsapp"></i>
-</a>
-
-<!-- SCROLL TOP -->
-<a href="#hero" class="scroll-top" id="scrollTop" aria-label="Scroll to top">
-  <i class="fas fa-arrow-up"></i>
-</a>
+<footer><div class="wrap"><span>© 2025 Ahsan Amin Gorsi. All rights reserved.</span><span>Designed and developed by Ahsan Amin</span></div></footer>
 
 <script>
-  // ── THEME TOGGLE ──
-  const themeBtn = document.getElementById('themeBtn');
-  const html = document.documentElement;
-  let theme = localStorage.getItem('portfolio-theme') || 'dark';
-  
-  function applyTheme(t) {
-    html.setAttribute('data-theme', t);
-    themeBtn.innerHTML = t === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-    localStorage.setItem('portfolio-theme', t);
-  }
-  applyTheme(theme);
-  themeBtn.addEventListener('click', () => {
-    theme = theme === 'dark' ? 'light' : 'dark';
-    applyTheme(theme);
-  });
+const root=document.documentElement,tb=document.getElementById('themeBtn');
+let th='dark';try{th=localStorage.getItem('portfolio-theme')||'dark'}catch(e){}
+function setTheme(t){root.dataset.theme=t;tb.innerHTML=t==='dark'?'<i class="fas fa-sun"></i>':'<i class="fas fa-moon"></i>';try{localStorage.setItem('portfolio-theme',t)}catch(e){}}
+setTheme(th);tb.onclick=()=>{th=th==='dark'?'light':'dark';setTheme(th)};
 
-  // ── HAMBURGER MENU ──
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
-  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+const bg=document.getElementById('burger'),mm=document.getElementById('mm');
+bg.onclick=()=>{const o=mm.classList.toggle('open');bg.setAttribute('aria-expanded',o)};
+mm.querySelectorAll('a').forEach(a=>a.onclick=()=>{mm.classList.remove('open');bg.setAttribute('aria-expanded',false)});
 
-  // ── FAQ ACCORDION ──
-  document.querySelectorAll('.faq-q').forEach(q => {
-    q.addEventListener('click', () => {
-      const item = q.parentElement;
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
-    });
-  });
+const hero=document.querySelector('.hero');
+hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();hero.style.setProperty('--mx',(e.clientX-r.left)+'px');hero.style.setProperty('--my',(e.clientY-r.top)+'px')});
 
-  // ── SCROLL REVEAL + SKILL BARS ──
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        entry.target.querySelectorAll('.skill-fill').forEach(bar => {
-          bar.style.width = bar.getAttribute('data-w') + '%';
-        });
-        revealObs.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-  
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');e.target.querySelectorAll('.bar i').forEach(b=>b.style.width=b.dataset.w+'%');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 
-  // ── SCROLL TOP BUTTON ──
-  const scrollTopBtn = document.getElementById('scrollTop');
-  window.addEventListener('scroll', () => {
-    scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
-  });
-  scrollTopBtn.addEventListener('click', e => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // ── ACTIVE NAV LINK ──
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 80) current = sec.id;
-    });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent2)' : '';
-    });
-  });
+const secs=[...document.querySelectorAll('main section[id]')],lk=[...document.querySelectorAll('.links a')];
+addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(scrollY>=s.offsetTop-140)cur=s.id});lk.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))},{passive:true});
 </script>
 </body>
 </html>
