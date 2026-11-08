@@ -1,0 +1,37 @@
+# Ahsan Amin Gorsi
+
+> Ahsan Amin Gorsi is a .NET C# web developer and BSCS student from Kotli, Azad Kashmir, Pakistan. He builds web applications with ASP.NET MVC, C# and SQL Server, and is the founder of Acadivo, an educational platform for sharing academic materials. He is open to freelance work and collaborations.
+
+## Quick facts
+- Name: Ahsan Amin Gorsi (also written Ahsan Amin)
+- Role: .NET C# Web Developer, Founder of Acadivo
+- Education: BSCS (2023–2027), University of Kotli, Azad Jammu & Kashmir
+- Location: Khuiratta, Kotli, Azad Kashmir, Pakistan
+- Core stack: C#, ASP.NET MVC, SQL Server, HTML, CSS, JavaScript, TypeScript, Bootstrap, Git
+- Award: Recognition Award, Entrepreneurship Innovation Conference 2025 (EIC 25), University of Kotli
+- Availability: open to freelance web development, backend development, UI/UX and graphic design, and tech consultation
+- Contact: ahsanamingorsi@gmail.com, WhatsApp +92 349 5473628
+
+## Projects
+- AskPaperGen: exam paper generator that helps teachers build structured question papers with sections and images (ASP.NET MVC, C#, SQL Server). https://ahsanamingorsi.github.io/AskPaperGen/
+- Acadivo: educational platform where students share and access academic materials, with profiles, file management and a points system (ASP.NET MVC, C#, SQL Server).
+- Flixsan: movie information site showing trending movies dynamically from external APIs (HTML, CSS, JavaScript). https://github.com/ahsanamingorsi/FlixSan
+
+## Experience
+- Founder & Web Developer, Acadivo (2025–present)
+- Graphic Designer, SOCTECH Society, University of Kotli (2024–present)
+
+## Services
+- Web development, backend development, UI/UX and graphic design, tech consultation
+
+## Pages
+- [Portfolio home](https://your-domain.com/): about, skills, projects, resume, gallery, services, social profiles, FAQ and contact
+- [Resume (PDF)](https://your-domain.com/source/Resume/Ahsan%20Amin%20-%20Resume.pdf)
+
+## Profiles
+- GitHub: https://github.com/ahsanamingorsi
+- LinkedIn: https://www.linkedin.com/in/ahsanamingorsi
+- Instagram: https://www.instagram.com/ahsanamingorsi
+- YouTube: https://www.youtube.com/@ahsanamingorsi
+- TikTok: https://www.tiktok.com/@ahsanamingorsi
+- Handle on all platforms: @ahsanamingorsi
