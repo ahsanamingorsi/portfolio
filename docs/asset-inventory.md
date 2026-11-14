@@ -1,0 +1,36 @@
+# Asset inventory
+
+Every file in the supplied archive, inspected for dimensions and content. Originals are kept at their exact old paths under `public/` (so `https://ahsanamingorsi.com/source/images/...` URLs keep working) and are never renamed. The site displays WebP derivatives written to `public/images/optimized/` by `npm run images`; the image viewer links to the original.
+
+| Original path (unchanged) | Size | What it shows | Used in | Derivatives |
+| --- | --- | --- | --- | --- |
+| `source/images/AAG Logo.png` | 1020x1020, transparent | Silver and blue AAG monogram | Header, hero, footer, favicon, social image | `aag-logo-200/600.webp` (cropped to the mark), `icons/icon-32/180/192/512.png` |
+| `source/images/Profile img.png` | 1024x1024, 2.3 MB | Studio portrait, navy blazer | Hero, gallery, social image | `profile-480/960.webp` (16 KB / 116 KB) |
+| `source/images/Hero img.jpg` | 3024x3733 | At a laptop, looking at the screen | About, gallery | `workspace-1-640/1280.webp` |
+| `source/images/Hero img 2.jpg` | 3024x4032 | Typing at a laptop | Gallery | `workspace-2-640/1280.webp` |
+| `source/images/Award.jpeg` | 1600x1600 | EIC 25 award plaque: "Presented to Ahsan Amin Gorsi, University of Kotli AJK" | Achievements, gallery | `eic25-award-640/1280.webp` |
+| `source/images/eic-award-stage.jpg` | 480x320 (small) | Receiving the award on stage | Achievements, gallery | `eic25-award-stage-480.webp` |
+| `source/images/E-Gala 2026.jpeg` | 1600x1068 | Standing before the Acadivo LED screen graphic | Acadivo cover, creator work, gallery, hero panel | `egala-2026-stage-640/1280.webp` |
+| `source/images/E-Gala 2026 {Apprication Certificate ).jpeg` | 1600x1068 | Receiving a certificate, Acadivo graphic behind | Achievements, Acadivo case study, gallery | `egala-2026-certificate-640/1280.webp` |
+| `source/images/EIC-25 Team Graphics.jpg` | 1024x1148 | EIC 2025 graphics team group photo | Creator work, gallery, hero panel | `eic25-graphics-team-640/1024.webp` |
+| `source/images/SEC MEDIA TEAM 2024.jpg` | 1040x893 | "Team Media" poster, 2nd Startup and Entrepreneurship Conference 2024 | Achievements, creator work, gallery | `sec-2024-media-team-640/1040.webp` |
+| `source/Resume/Ahsan Amin - Resume.pdf` | 1 page, A4, 71 KB, dated 23 Dec 2025 | CV | Resume, hero, command palette | `resume-preview-1100.webp` (page render) |
+
+## Generated for the new site
+
+- `public/og-image.png` (1200x630): social preview, built from the logo and portrait. Template: `scripts/og-image.html`.
+- `public/icons/*`: favicon and touch icons from the AAG logo on #080D18.
+
+## Referenced by the old site but missing from the archive
+
+These three paths are in the old code but the files were not supplied, so the site does not request them. They are kept as commented-out entries in `src/data/projects.ts`.
+
+- `source/images/projects/askpapergen.png`
+- `source/images/projects/acadivo.png`
+- `source/images/projects/flixsan.png`
+
+To use one: put the file at that path under `public/`, uncomment its line in `projects.ts`, and set the real width and height. Until then, those projects show a generated cover labelled "no screenshot yet". The build fails if a listed screenshot file is missing, so a broken image cannot be deployed.
+
+## Not available at all
+
+No certificate scan for "C# .NET MVC Web Development", no NaSCon 2026 photo or certificate, no video thumbnails, no screenshots of LifeOS or Monivo.

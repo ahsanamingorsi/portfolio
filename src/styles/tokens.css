@@ -1,0 +1,54 @@
+/*
+ * AAG design tokens. The eight brand colours are used exactly as specified.
+ * Dark is the default theme; the light theme re-maps the same roles.
+ */
+:root {
+  /* Brand */
+  --bg: #080D18;
+  --bg-2: #101B35;
+  --card: #111D35;
+  --border: #263650;
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+  --blue: #2563EB;
+  --cyan: #06B6D4;
+
+  /* Derived roles */
+  --accent-text: var(--cyan);         /* small accent text: 8:1 on --bg */
+  --on-blue: #FFFFFF;
+  --logo-plate: transparent;
+  --overlay: rgba(4, 7, 14, 0.82);
+  --shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.8);
+  --grid-line: rgba(38, 54, 80, 0.55);
+
+  /* Type */
+  --font-head: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* Shape and rhythm */
+  --radius: 14px;
+  --radius-sm: 9px;
+  --wrap: 1180px;
+  --gutter: clamp(1.1rem, 4vw, 2rem);
+  --header-h: 64px;
+  --section-y: clamp(4rem, 9vw, 7.5rem);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #F8FAFC;
+  --bg-2: #EEF2F9;
+  --card: #FFFFFF;
+  --border: #D3DCEA;
+  --text: #080D18;
+  --muted: #4B5B73;
+  --accent-text: #0A6C82;             /* cyan darkened for text contrast on light */
+  --logo-plate: #080D18;
+  --overlay: rgba(8, 13, 24, 0.7);
+  --shadow: 0 24px 60px -34px rgba(16, 27, 53, 0.45);
+  --grid-line: rgba(16, 27, 53, 0.09);
+  color-scheme: light;
+}
