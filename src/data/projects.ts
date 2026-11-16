@@ -168,7 +168,10 @@ export const projects: Project[] = [
     status: 'experiment',
     statusNote: 'A personal software experiment. Not a commercial product.',
     stack: [],
-    screenshots: [],
+    cover: { original: 'source/images/projects/lifeos.png', width: 1550, height: 830, alt: 'LifeOS Projects page' },
+    screenshots: [
+      { original: 'source/images/projects/lifeos.png', width: 1550, height: 830, alt: 'LifeOS Projects page' },
+    ],
     caseStudy: {
       overview: [
         'LifeOS is an experimental personal productivity system: a personal software experiment in keeping work and study organised in one place.',
