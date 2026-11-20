@@ -6,7 +6,19 @@
 .facts dt { color: var(--muted); flex: none; }
 .facts dd { text-align: right; font-weight: 500; }
 .about__story { display: grid; gap: 1.15rem; max-width: 62ch; color: var(--muted); font-size: 1.04rem; }
-.about__story .about__first { font: 500 clamp(1.2rem, 2.4vw, 1.5rem)/1.45 var(--font-head); letter-spacing: -0.01em; color: var(--text); }
+.about__story .about__first {
+  position: relative; padding-left: 1.2rem;
+  font: 500 clamp(1.2rem, 2.4vw, 1.5rem)/1.45 var(--font-head); letter-spacing: -0.01em; color: var(--text);
+}
+.about__story .about__first::before {
+  content: ''; position: absolute; left: 0; top: 0.15em; bottom: 0.15em; width: 3px; border-radius: 2px;
+  background: linear-gradient(var(--blue), var(--cyan));
+}
+/* The founding moment reads as a highlight, not another paragraph in the stack. */
+.about__story p:nth-child(3) {
+  padding: 1.1rem 1.3rem; border-left: 3px solid var(--cyan); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: color-mix(in srgb, var(--cyan) 8%, transparent); color: var(--text);
+}
 
 .milestones { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin-top: clamp(2.5rem, 6vw, 4rem); border-top: 1px solid var(--border); }
 .milestones li { position: relative; padding: 1.3rem 1rem 0 0; font-size: 0.88rem; color: var(--muted); }
@@ -36,6 +48,13 @@
 .skill__text strong { font-weight: 600; font-size: 0.95rem; }
 .skill__text span { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
 @media (max-width: 760px) { .skillgroup { grid-template-columns: 1fr; } .skillgroup h3 { padding-top: 0; } }
+
+/* Alternate the accent per category group so the grid doesn't read as one flat tone. */
+.skillgroup:nth-of-type(even) h3 svg { color: var(--cyan); }
+.skillgroup:nth-of-type(even) .skill:not(.skill--learning) .skill__symbol {
+  background: color-mix(in srgb, var(--cyan) 20%, transparent);
+  border-color: color-mix(in srgb, var(--cyan) 48%, transparent);
+}
 
 /* ---------- Projects ---------- */
 .pgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
@@ -109,7 +128,10 @@
 
 /* ---------- Achievements ---------- */
 .agrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.1rem; }
-.acard { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); overflow: hidden; }
+.acard { position: relative; display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); overflow: hidden; }
+.acard::before { content: ''; position: absolute; z-index: 1; inset: 0 0 auto 0; height: 3px; background: var(--blue); }
+.acard:nth-child(even)::before { background: var(--cyan); }
+.acard--text::before { content: none; }
 .acard__media { position: relative; display: block; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; cursor: zoom-in; background: var(--bg); }
 .acard__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transition: transform 0.6s var(--ease); }
 .acard__media:hover img { transform: scale(1.04); }
