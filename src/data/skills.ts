@@ -1,6 +1,6 @@
 import type { Skill, SkillCategory } from './types';
 
-export const skillCategories: SkillCategory[] = ['Backend', 'Frontend', 'Database', 'Development', 'Creative'];
+export const skillCategories: SkillCategory[] = ['Backend', 'Frontend', 'Database', 'Architecture and Tools', 'Creative'];
 
 /*
  * level: 'using'    = used in projects or regular work
@@ -23,10 +23,10 @@ export const skills: Skill[] = [
 
   { name: 'SQL Server', symbol: 'Sq', category: 'Database', level: 'using', note: 'Database design, queries and data management.' },
 
-  { name: 'REST APIs', symbol: 'Re', category: 'Development', level: 'using', note: 'Consuming external APIs; designing my own.' },
-  { name: 'Git', symbol: 'Gt', category: 'Development', level: 'using', note: 'Version control for every project.' },
-  { name: 'GitHub', symbol: 'Gh', category: 'Development', level: 'using', note: 'Hosting, GitHub Pages and Actions.' },
-  { name: 'Clean Architecture', symbol: 'Ca', category: 'Development', level: 'learning', note: 'Structuring larger .NET solutions.' },
+  { name: 'REST APIs', symbol: 'Re', category: 'Architecture and Tools', level: 'using', note: 'Consuming external APIs; designing my own.' },
+  { name: 'Git', symbol: 'Gt', category: 'Architecture and Tools', level: 'using', note: 'Version control for every project.' },
+  { name: 'GitHub', symbol: 'Gh', category: 'Architecture and Tools', level: 'using', note: 'Hosting, GitHub Pages and Actions.' },
+  { name: 'Clean Architecture', symbol: 'Ca', category: 'Architecture and Tools', level: 'learning', note: 'Structuring larger .NET solutions.' },
 
   { name: 'Graphic Design', symbol: 'Gd', category: 'Creative', level: 'using', note: 'Posters, social visuals and event branding.' },
   { name: 'UI/UX Fundamentals', symbol: 'Ux', category: 'Creative', level: 'using', note: 'User-focused interfaces.' },

@@ -9,7 +9,7 @@ type CategoryFilter = 'All' | SkillCategory;
 type LevelFilter = 'Everything' | 'Using' | 'Learning';
 
 const categoryIcons: Record<SkillCategory, IconName> = {
-  Backend: 'server', Frontend: 'layout', Database: 'database', Development: 'wrench', Creative: 'palette',
+  Backend: 'server', Frontend: 'layout', Database: 'database', 'Architecture and Tools': 'wrench', Creative: 'palette',
 };
 const levelOf: Record<LevelFilter, SkillLevel | null> = { Everything: null, Using: 'using', Learning: 'learning' };
 

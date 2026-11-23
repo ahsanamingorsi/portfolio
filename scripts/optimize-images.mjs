@@ -19,8 +19,6 @@ const jobs = [
   ['E-Gala 2026 {Apprication Certificate ).jpeg', 'egala-2026-certificate', [640, 1280]],
   ['EIC-25 Team Graphics.jpg', 'eic25-graphics-team', [640, 1024]],
   ['SEC MEDIA TEAM 2024.jpg', 'sec-2024-media-team', [640, 1040]],
-  // The logo PNG has large transparent margins; crop to the mark itself.
-  ['AAG Logo.png', 'aag-logo', [200, 600], { left: 0, top: 290, width: 1020, height: 410 }],
 ];
 
 await mkdir(OUT, { recursive: true });
@@ -34,17 +32,51 @@ for (const [file, slug, widths, crop] of jobs) {
   }
 }
 
-// Favicons and touch icons: the AAG mark on the brand background.
-const mark = await sharp(path.join(SRC, 'AAG Logo.png'))
-  .extract({ left: 0, top: 290, width: 1020, height: 410 })
-  .resize({ width: 400 })
-  .toBuffer();
+// Favicons and touch icons: the AAG mark (viewfinder + signal pulse) on
+// Petrol Obsidian, matching src/components/ui/Logo.tsx exactly.
+const markSvg = `
+  <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#172B29"/>
+    <path d="M10,32 V10 H32 M68,10 H90 V32 M90,68 V90 H68 M32,90 H10 V68"
+      stroke="#D9D9C9" stroke-width="7" stroke-linecap="square" fill="none"/>
+    <path d="M18,52 H34 L44,26 L56,74 L66,52 H82"
+      stroke="#C4D65E" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </svg>`;
 await mkdir('public/icons', { recursive: true });
 for (const size of [32, 180, 192, 512]) {
-  const inner = await sharp(mark).resize({ width: Math.round(size * 0.8) }).toBuffer();
-  await sharp({ create: { width: size, height: size, channels: 4, background: '#080D18' } })
-    .composite([{ input: inner, gravity: 'centre' }])
-    .png()
-    .toFile(`public/icons/icon-${size}.png`);
+  await sharp(Buffer.from(markSvg)).resize(size, size).png().toFile(`public/icons/icon-${size}.png`);
 }
 console.log('icons written to public/icons');
+
+// Open Graph card: brand background, the mark, name, headline and the portrait.
+const profile = await sharp(path.join(SRC, 'Profile img.png'))
+  .resize({ width: 520, height: 630, fit: 'cover', position: 'top' })
+  .png()
+  .toBuffer();
+const profileB64 = profile.toString('base64');
+const ogSvg = `
+  <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="630" fill="#172B29"/>
+    <defs>
+      <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+        <path d="M48 0H0V48" fill="none" stroke="#D9D9C9" stroke-opacity="0.08"/>
+      </pattern>
+      <clipPath id="clip"><rect x="680" y="0" width="520" height="630" rx="4"/></clipPath>
+    </defs>
+    <rect width="1200" height="630" fill="url(#grid)"/>
+    <image href="data:image/png;base64,${profileB64}" x="680" y="0" width="520" height="630" clip-path="url(#clip)"/>
+    <path d="M700,40 V10 H730 M700,590 V620 H730" stroke="#C4D65E" stroke-width="4" fill="none"/>
+    <g transform="translate(64,64)">
+      <path d="M0,44 V0 H44 M88,0 H132 V44 M132,88 V132 H88 M44,132 H0 V88"
+        stroke="#D9D9C9" stroke-width="9" stroke-linecap="square" fill="none"/>
+      <path d="M22,66 H44 L58,32 L74,100 L88,66 H110"
+        stroke="#C4D65E" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </g>
+    <text x="64" y="320" font-family="Arial, sans-serif" font-size="76" font-weight="800" fill="#D9D9C9" letter-spacing="-2">AHSAN AMIN</text>
+    <text x="64" y="404" font-family="Arial, sans-serif" font-size="76" font-weight="800" fill="#D9D9C9" letter-spacing="-2">GORSI</text>
+    <text x="64" y="460" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#C4D65E">Building Digital Products.</text>
+    <text x="64" y="498" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#C4D65E">Engineering Ideas Into Reality.</text>
+    <text x="64" y="552" font-family="monospace" font-size="20" fill="#93A099">Developer. Creator. Entrepreneur.</text>
+  </svg>`;
+await sharp(Buffer.from(ogSvg)).png().toFile('public/og-image.png');
+console.log('og-image.png regenerated');

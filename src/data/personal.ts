@@ -27,26 +27,7 @@ export const personal = {
   },
 
   intro:
-    'I build software, explore emerging technology, and turn ideas into useful digital products. I also share my learning journey and experiences through technology content.',
-
-  /** The three sides of the brand. Drives the switch in the hero. */
-  identities: [
-    {
-      id: 'developer',
-      label: 'Developer',
-      line: 'I write C# and build web applications with ASP.NET MVC and SQL Server.',
-    },
-    {
-      id: 'creator',
-      label: 'Creator',
-      line: 'I design event graphics and make technology content about what I learn.',
-    },
-    {
-      id: 'entrepreneur',
-      label: 'Entrepreneur',
-      line: 'I am building Acadivo, a resource-sharing platform for students and teachers.',
-    },
-  ],
+    'Software developer, technology enthusiast, and aspiring entrepreneur focused on building useful digital products and solving real problems through technology.',
 
   heroTech: ['C#', '.NET', 'ASP.NET MVC', 'SQL Server', 'JavaScript', 'TypeScript', 'Git'],
 
@@ -76,5 +57,3 @@ export const personal = {
     ],
   },
 } as const;
-
-export type IdentityId = (typeof personal.identities)[number]['id'];

@@ -71,7 +71,7 @@ export interface Project {
   };
 }
 
-export type SkillCategory = 'Backend' | 'Frontend' | 'Database' | 'Development' | 'Creative';
+export type SkillCategory = 'Backend' | 'Frontend' | 'Database' | 'Architecture and Tools' | 'Creative';
 export type SkillLevel = 'using' | 'learning';
 
 export interface Skill {

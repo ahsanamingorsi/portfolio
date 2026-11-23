@@ -38,7 +38,7 @@ export function Contact() {
           </ul>
 
           <ul className="contact__social">
-            {socialLinks.filter((s) => s.id !== 'whatsapp').map((s) => (
+            {socialLinks.filter((s) => ['github', 'linkedin', 'instagram'].includes(s.id)).map((s) => (
               <li key={s.id}>
                 <a href={s.url} target="_blank" rel="noopener me"><Icon name={s.icon} size={16} /> {s.label}</a>
               </li>
