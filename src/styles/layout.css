@@ -13,16 +13,16 @@
 
 .header__nav ul { display: flex; gap: 0.1rem; }
 .header__nav a { position: relative; display: block; padding: 0.5rem 0.7rem; font-size: 0.88rem; font-weight: 500; color: var(--muted); transition: color 0.2s; }
-.header__nav a::after { content: ''; position: absolute; left: 0.7rem; right: 0.7rem; bottom: 0.2rem; height: 2px; border-radius: 2px; background: var(--cyan); transform: scaleX(0); transform-origin: left; transition: transform 0.3s var(--ease); }
+.header__nav a::after { content: ''; position: absolute; left: 0.7rem; right: 0.7rem; bottom: 0.2rem; height: 2px; border-radius: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s var(--ease); }
 .header__nav a:hover, .header__nav a[aria-current] { color: var(--text); }
 .header__nav a[aria-current]::after { transform: scaleX(1); }
 
 .header__tools { display: flex; align-items: center; gap: 0.5rem; }
 .palette-btn { display: inline-flex; align-items: center; gap: 0.5rem; height: 44px; padding: 0 0.7rem; border-radius: 10px; border: 1px solid var(--border); color: var(--muted); font-size: 0.86rem; background: color-mix(in srgb, var(--card) 70%, transparent); transition: border-color 0.2s; }
-.palette-btn:hover { border-color: var(--cyan); }
+.palette-btn:hover { border-color: var(--accent); }
 .header__burger { display: none; }
 
-.skip { position: absolute; left: 1rem; top: -100px; z-index: 100; padding: 0.7rem 1rem; border-radius: 8px; background: var(--blue); color: #fff; font-weight: 600; }
+.skip { position: absolute; left: 1rem; top: -100px; z-index: 100; padding: 0.7rem 1rem; border-radius: 8px; background: var(--ember); color: #fff; font-weight: 600; }
 .skip:focus { top: 0.6rem; }
 
 @media (max-width: 1120px) {
@@ -36,7 +36,7 @@
 @media (max-width: 420px) { .header__name { display: none; } }
 
 /* ---------- Scroll chrome ---------- */
-.progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 60; background: linear-gradient(90deg, var(--blue), var(--cyan)); transform: scaleX(0); transform-origin: left; }
+.progress { position: fixed; inset: 0 0 auto 0; height: 2px; z-index: 60; background: linear-gradient(90deg, var(--ember), var(--accent)); transform: scaleX(0); transform-origin: left; }
 .to-top { position: fixed; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom)); z-index: 40; background: var(--card); opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity 0.25s, transform 0.25s, border-color 0.2s; }
 .to-top.is-visible { opacity: 1; pointer-events: auto; transform: none; }
 

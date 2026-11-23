@@ -7,7 +7,7 @@
   <meta name="description" content="Ahsan Amin Gorsi (AAG) is a .NET developer, technology content creator and founder of Acadivo, based in Kotli, Azad Kashmir. Ideas into technology.">
   <meta name="author" content="Ahsan Amin Gorsi">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="theme-color" content="#080D18">
+  <meta name="theme-color" content="#172B29">
   <meta name="color-scheme" content="dark light">
   <link rel="canonical" href="https://ahsanamingorsi.com/">
 
@@ -33,12 +33,12 @@
   <link rel="apple-touch-icon" href="/icons/icon-180.png">
   <link rel="manifest" href="/site.webmanifest">
 
-  <!-- Apply the saved theme before first paint. -->
-  <script>try{var t=localStorage.getItem('aag:theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+  <!-- Apply the saved theme (or system preference, for "auto") before first paint. -->
+  <script>try{var t=localStorage.getItem('aag:theme')||'auto';var d=t==='auto'?(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):t;document.documentElement.dataset.theme=d}catch(e){}</script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Archivo:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="/images/optimized/profile-480.webp" imagesrcset="/images/optimized/profile-480.webp 480w, /images/optimized/profile-960.webp 960w" imagesizes="(max-width: 900px) 70vw, 420px" fetchpriority="high">
 
   <script type="application/ld+json">
@@ -101,11 +101,11 @@
 <body>
   <div id="root"></div>
   <noscript>
-    <div style="max-width:40rem;margin:3rem auto;padding:0 1.25rem;font-family:system-ui,sans-serif;color:#F8FAFC">
+    <div style="max-width:40rem;margin:3rem auto;padding:0 1.25rem;font-family:system-ui,sans-serif;color:#D9D9C9;background:#172B29">
       <h1>Ahsan Amin Gorsi</h1>
       <p>Developer. Creator. Entrepreneur. This site needs JavaScript to run. You can still reach me at
-      <a style="color:#06B6D4" href="mailto:ahsanamingorsi@gmail.com">ahsanamingorsi@gmail.com</a> or on
-      <a style="color:#06B6D4" href="https://github.com/ahsanamingorsi">GitHub</a>.</p>
+      <a style="color:#C4D65E" href="mailto:ahsanamingorsi@gmail.com">ahsanamingorsi@gmail.com</a> or on
+      <a style="color:#C4D65E" href="https://github.com/ahsanamingorsi">GitHub</a>.</p>
     </div>
   </noscript>
   <script type="module" src="/src/main.tsx"></script>

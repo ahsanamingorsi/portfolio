@@ -1,34 +1,38 @@
 /*
- * AAG design tokens. The eight brand colours are used exactly as specified.
- * Dark is the default theme; the light theme re-maps the same roles.
+ * AAG "UNTAMED SIGNAL" design tokens. Exactly four brand colours, used in a
+ * fixed ratio: Petrol Obsidian ~65%, Stone Mist ~20%, Acid Mineral ~10%,
+ * Oxide Ember ~5%. Dark is the default theme; light re-maps the same roles.
+ * `--accent` (Acid Mineral) is the signature highlight; `--ember` (Oxide
+ * Ember) is reserved for selective, sparing details.
  */
 :root {
   /* Brand */
-  --bg: #080D18;
-  --bg-2: #13244A;
-  --card: #111D35;
-  --border: #263650;
-  --text: #F8FAFC;
-  --muted: #94A3B8;
-  --blue: #2563EB;
-  --cyan: #06B6D4;
+  --bg: #172B29;
+  --bg-2: #1E3733;
+  --card: #1C332F;
+  --border: #2E4842;
+  --text: #D9D9C9;
+  --muted: #93A099;
+  --accent: #C4D65E;
+  --ember: #C56B4B;
 
   /* Derived roles */
-  --accent-text: var(--cyan);         /* small accent text: 8:1 on --bg */
-  --on-blue: #FFFFFF;
+  --accent-text: var(--accent);       /* small accent text: passes contrast on --bg */
+  --on-accent: #172B29;               /* text sitting on an Acid Mineral fill */
+  --on-ember: #D9D9C9;                /* text sitting on an Oxide Ember fill */
   --logo-plate: transparent;
-  --overlay: rgba(4, 7, 14, 0.82);
-  --shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.8);
-  --grid-line: rgba(38, 54, 80, 0.55);
+  --overlay: rgba(10, 19, 18, 0.82);
+  --shadow: 0 20px 44px -26px rgba(0, 0, 0, 0.75);
+  --grid-line: rgba(217, 217, 201, 0.12);
 
   /* Type */
-  --font-head: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-head: 'Archivo', 'Inter', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
-  /* Shape and rhythm */
-  --radius: 14px;
-  --radius-sm: 9px;
+  /* Shape and rhythm: sharper, less rounded, more industrial. */
+  --radius: 6px;
+  --radius-sm: 4px;
   --wrap: 1180px;
   --gutter: clamp(1.1rem, 4vw, 2rem);
   --header-h: 64px;
@@ -39,16 +43,18 @@
 }
 
 :root[data-theme='light'] {
-  --bg: #F8FAFC;
-  --bg-2: #EEF2F9;
-  --card: #FFFFFF;
-  --border: #D3DCEA;
-  --text: #080D18;
-  --muted: #4B5B73;
-  --accent-text: #0A6C82;             /* cyan darkened for text contrast on light */
-  --logo-plate: #080D18;
-  --overlay: rgba(8, 13, 24, 0.7);
-  --shadow: 0 24px 60px -34px rgba(16, 27, 53, 0.45);
-  --grid-line: rgba(16, 27, 53, 0.09);
+  --bg: #D9D9C9;
+  --bg-2: #CFCFBB;
+  --card: #F1F1E6;
+  --border: #BEBEA8;
+  --text: #172B29;
+  --muted: #51645E;
+  --accent-text: #5C6A1E;             /* Acid Mineral darkened for text contrast on light */
+  --on-accent: #172B29;
+  --on-ember: #F1F1E6;
+  --logo-plate: #172B29;
+  --overlay: rgba(23, 43, 41, 0.72);
+  --shadow: 0 20px 44px -28px rgba(23, 43, 41, 0.35);
+  --grid-line: rgba(23, 43, 41, 0.08);
   color-scheme: light;
 }

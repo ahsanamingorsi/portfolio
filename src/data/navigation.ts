@@ -3,12 +3,12 @@ export const sections = [
   { id: 'about', label: 'About', nav: true },
   { id: 'skills', label: 'Skills', nav: true },
   { id: 'projects', label: 'Projects', nav: true },
-  { id: 'experience', label: 'Experience', nav: true },
+  { id: 'experience', label: 'Journey', nav: true },
   { id: 'achievements', label: 'Achievements', nav: false },
-  { id: 'creator', label: 'Creator Studio', nav: true },
+  { id: 'creator', label: 'Creator Studio', nav: false },
   { id: 'gallery', label: 'Gallery', nav: false },
   { id: 'services', label: 'Services', nav: false },
-  { id: 'resume', label: 'Resume', nav: true },
+  { id: 'resume', label: 'Resume', nav: false },
   { id: 'contact', label: 'Contact', nav: true },
 ] as const;
 

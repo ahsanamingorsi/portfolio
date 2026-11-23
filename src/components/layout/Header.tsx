@@ -3,7 +3,7 @@ import { sections } from '../../data/navigation';
 import { personal } from '../../data/personal';
 import { socialLinks } from '../../data/social-links';
 import { useActiveSection } from '../../hooks/useActiveSection';
-import type { Theme } from '../../hooks/useTheme';
+import type { ThemePref } from '../../hooks/useTheme';
 import { Link, useRouter } from '../../lib/router';
 import { Dialog } from '../ui/Dialog';
 import { Icon } from '../ui/Icon';
@@ -11,10 +11,12 @@ import { Logo } from '../ui/Logo';
 
 const sectionIds = sections.map((s) => s.id);
 const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
+const themeIcon = { dark: 'moon', light: 'sun', auto: 'contrast' } as const;
+const nextThemeLabel = { dark: 'light', light: 'auto', auto: 'dark' } as const;
 
-interface Props { theme: Theme; onToggleTheme: () => void; onOpenPalette: () => void }
+interface Props { themePref: ThemePref; onCycleTheme: () => void; onOpenPalette: () => void }
 
-export function Header({ theme, onToggleTheme, onOpenPalette }: Props) {
+export function Header({ themePref, onCycleTheme, onOpenPalette }: Props) {
   const { path, key } = useRouter();
   const onHome = path === '/';
   const active = useActiveSection(sectionIds, onHome);
@@ -29,7 +31,7 @@ export function Header({ theme, onToggleTheme, onOpenPalette }: Props) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const themeLabel = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+  const themeLabel = `Theme: ${themePref} (switch to ${nextThemeLabel[themePref]})`;
 
   return (
     <header className={`header ${scrolled ? 'is-scrolled' : ''}`}>
@@ -56,8 +58,8 @@ export function Header({ theme, onToggleTheme, onOpenPalette }: Props) {
             <span className="palette-btn__text">Search</span>
             <kbd>{isMac ? '⌘' : 'Ctrl'} K</kbd>
           </button>
-          <button className="icon-btn" onClick={onToggleTheme} aria-label={themeLabel} title={themeLabel}>
-            <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
+          <button className="icon-btn" onClick={onCycleTheme} aria-label={themeLabel} title={themeLabel}>
+            <Icon name={themeIcon[themePref]} />
           </button>
           <button className="icon-btn header__burger" onClick={() => setMenuOpen(true)} aria-label="Open menu" aria-haspopup="dialog">
             <Icon name="menu" />

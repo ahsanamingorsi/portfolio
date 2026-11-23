@@ -5,10 +5,6 @@ import type { ImageAsset } from './types';
  * from the previous portfolio (public/source/images) and have not been renamed.
  */
 export const images = {
-  logo: {
-    original: 'source/images/AAG Logo.png', slug: 'aag-logo', widths: [200, 600],
-    width: 600, height: 241, alt: 'AAG',
-  },
   profile: {
     original: 'source/images/Profile img.png', slug: 'profile', widths: [480, 960],
     width: 960, height: 960, alt: 'Portrait of Ahsan Amin Gorsi in a navy blazer',

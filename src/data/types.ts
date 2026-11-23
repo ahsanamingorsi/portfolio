@@ -4,7 +4,7 @@ export type IconName =
   | 'menu' | 'x' | 'copy' | 'check' | 'code' | 'server' | 'database' | 'layout' | 'palette'
   | 'video' | 'rocket' | 'wrench' | 'flask' | 'file' | 'play' | 'award' | 'calendar' | 'mapPin'
   | 'star' | 'chevronLeft' | 'chevronRight' | 'command' | 'users' | 'camera' | 'send' | 'alert'
-  | 'eye' | 'graduation' | 'briefcase' | 'home' | 'image';
+  | 'eye' | 'graduation' | 'briefcase' | 'home' | 'image' | 'contrast';
 
 /** A responsive image. `original` is the untouched asset path from the previous site. */
 export interface ImageAsset {

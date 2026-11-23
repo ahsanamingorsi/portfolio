@@ -19,7 +19,7 @@ function PageLoading() {
 
 function Shell() {
   const { path } = useRouter();
-  const { theme, toggle } = useTheme();
+  const { pref, cycle } = useTheme();
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [paletteLoaded, setPaletteLoaded] = useState(false);
 
@@ -28,7 +28,7 @@ function Shell() {
 
   useHotkey('mod+k', useCallback((e: KeyboardEvent) => { e.preventDefault(); setPaletteLoaded(true); setPaletteOpen((o) => !o); }, []));
   useHotkey('/', useCallback((e: KeyboardEvent) => { e.preventDefault(); openPalette(); }, [openPalette]));
-  useHotkey('t', toggle);
+  useHotkey('t', cycle);
 
   const projectMatch = matchPath('/projects/:slug', path);
   const project = projectMatch ? getProject(projectMatch.slug) : undefined;
@@ -41,14 +41,14 @@ function Shell() {
   return (
     <>
       <ScrollChrome />
-      <Header theme={theme} onToggleTheme={toggle} onOpenPalette={openPalette} />
+      <Header themePref={pref} onCycleTheme={cycle} onOpenPalette={openPalette} />
       <main id="main" key={path} className="page" tabIndex={-1}>
         <Suspense fallback={<PageLoading />}>{page}</Suspense>
       </main>
       <Footer />
       {paletteLoaded && (
         <Suspense fallback={null}>
-          <CommandPalette open={paletteOpen} onClose={closePalette} onToggleTheme={toggle} />
+          <CommandPalette open={paletteOpen} onClose={closePalette} onToggleTheme={cycle} />
         </Suspense>
       )}
     </>
